@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextValues
@@ -47,6 +48,11 @@ fun MainPageUI() {
                 onItemClick = {},
                 itemSelected = null
             )
+            DefaultCleanButton(
+                modifier = Modifier.padding(top = 15.dp)
+            ) {
+
+            }
         }
     }
 }
