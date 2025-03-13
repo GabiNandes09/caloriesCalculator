@@ -21,12 +21,12 @@ fun DefaultTextValues(
     ) {
         Text(
             text = "${title.uppercase()}: ",
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier.padding(end = 10.dp)
         )
         Text(
             text = value,
-            color = Color.Black,
+            color = Color.White,
             fontWeight = FontWeight.Bold
         )
     }

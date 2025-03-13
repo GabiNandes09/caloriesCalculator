@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextValues
 
 @Composable
 fun MainPageUI() {
@@ -19,7 +20,9 @@ fun MainPageUI() {
         containerColor = Color.Black
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues).fillMaxSize(),
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -29,6 +32,8 @@ fun MainPageUI() {
             ) {
                 
             }
+            DefaultTextValues(title = "Calorias", value = "259 kcal")
+            DefaultTextValues(title = "Preço", value = "R$ 5,99")
         }
     }
 }
