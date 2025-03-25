@@ -66,4 +66,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.compose.navigation)
+    implementation(project.dependencies.platform("io.insert-koin:koin-bom:4.0.2"))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 }
