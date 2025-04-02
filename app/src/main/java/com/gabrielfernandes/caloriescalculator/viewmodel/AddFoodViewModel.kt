@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gabrielfernandes.caloriescalculator.database.dao.FoodDAO
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
+import com.gabrielfernandes.caloriescalculator.utilities.convertToMoney
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,11 +23,11 @@ class AddFoodViewModel(
     val saved = _saved.asStateFlow()
 
     fun setName(name: String) {
-        this.name.value = name
+        this.name.value = name.replaceFirstChar { it.uppercase() }
     }
 
-    fun setKcal(kcal: Double) {
-        this.kcal.value = kcal
+    fun setKcal(kcal: String) {
+        this.kcal.value = convertToMoney(kcal)
     }
 
     fun saveFood() {
