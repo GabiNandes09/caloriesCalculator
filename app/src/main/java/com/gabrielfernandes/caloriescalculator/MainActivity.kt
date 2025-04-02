@@ -11,6 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.screens.mainpage.MainPageUI
 import com.gabrielfernandes.caloriescalculator.ui.theme.CaloriesCalculatorTheme
 
@@ -20,7 +23,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CaloriesCalculatorTheme {
-                MainPageUI()
+                val navController = rememberNavController()
+
+                NavHost(navController = navController, startDestination = "main" ){
+                    composable("main"){
+                        MainPageUI(navController = navController)
+                    }
+                    composable("addFood"){
+
+                    }
+                }
+
             }
         }
     }
