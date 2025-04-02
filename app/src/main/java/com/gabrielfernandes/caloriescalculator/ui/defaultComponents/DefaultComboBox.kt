@@ -29,7 +29,9 @@ fun DefaultComboBox(
     modifier: Modifier = Modifier,
     label: String = "",
     itens: List<Any>,
-    onItemClick: (Any) -> Unit
+    onItemClick: (Any) -> Unit,
+    canAdd: Boolean = false,
+    onAddClick: () -> Unit = {}
 ) {
     var expanded by remember { mutableStateOf(false) }
     var value by remember { mutableStateOf("") }
@@ -70,6 +72,19 @@ fun DefaultComboBox(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
+            if (canAdd){
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = "Adicionar novo",
+                            color = Color.Black
+                        )
+                    },
+                    onClick = {
+                        onAddClick()
+                    }
+                )
+            }
             itens.forEach { item ->
                 DropdownMenuItem(
                     text = {
