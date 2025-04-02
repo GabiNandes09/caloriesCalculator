@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveAndCancelButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
+import com.gabrielfernandes.caloriescalculator.utilities.convertToMoney
 import com.gabrielfernandes.caloriescalculator.viewmodel.AddFoodViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -48,9 +49,12 @@ fun AddFoodUI(navController: NavController) {
             }
             DefaultTextField(
                 label = "Calorias em 100g",
-                modifier = Modifier.padding(20.dp)
+                modifier = Modifier.padding(20.dp),
+                isNumeric = true
             ) { kcal ->
-                viewModel.setKcal(kcal.toDouble())
+                if (kcal.isNotEmpty()){
+                    viewModel.setKcal(convertToMoney(kcal))
+                }
             }
 
             DefaultSaveAndCancelButton(

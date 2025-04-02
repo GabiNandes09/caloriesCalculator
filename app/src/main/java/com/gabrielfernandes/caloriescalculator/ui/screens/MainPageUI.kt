@@ -94,7 +94,8 @@ private fun FirstItem(
 
     DefaultTextField(
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        label = "Calorias"
+        label = "Calorias",
+        isNumeric = true
     ) { newValue ->
         onValueChange(newValue)
     }
