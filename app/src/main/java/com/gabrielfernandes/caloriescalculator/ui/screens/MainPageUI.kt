@@ -2,7 +2,9 @@ package com.gabrielfernandes.caloriescalculator.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -51,14 +53,16 @@ fun MainPageUI(
         ) {
             FirstItem(
                 itens = foodList,
-                onItemClick = { first -> viewModel.setFirstItem(first as Food) },
-                valueLabel = requiredValue,
+                onItemClick = { first -> viewModel.setFirstItem(first) },
                 onValueChange = { newValue ->
                     requiredValue = newValue
                 },
                 itemSelected = firstItem,
                 onAddClick = { navController.navigate("addFood") }
             )
+            if (requiredValue.isNotEmpty()){
+                DefaultTextValues(title = "R$", value = requiredValue)
+            }
             SecondItem(
                 itens = foodList,
                 onItemClick = { second -> viewModel.setSecondItem(second as Food) },
@@ -76,11 +80,10 @@ fun MainPageUI(
 
 @Composable
 private fun FirstItem(
-    itens: List<Any>,
-    onItemClick: (Any) -> Unit,
-    valueLabel: String,
+    itens: List<Food>,
+    onItemClick: (Food) -> Unit,
     onValueChange: (String) -> Unit,
-    itemSelected: Any?,
+    itemSelected: Food?,
     onAddClick: () -> Unit
 ) {
     DefaultComboBox(
@@ -88,9 +91,13 @@ private fun FirstItem(
         label = "Selecione um item",
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
         canAdd = true,
-        onItemClick = { onItemClick(it) },
+        onItemClick = { onItemClick(it as Food) },
         onAddClick = { onAddClick() }
     )
+    if (itemSelected != null) {
+        DefaultTextValues(title = "Calorias/100g", value = itemSelected.caloriesIn100g.toString())
+        DefaultTextValues(title = "R$/g", value = "A fazer")
+    }
 
     DefaultTextField(
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
@@ -99,17 +106,14 @@ private fun FirstItem(
     ) { newValue ->
         onValueChange(newValue)
     }
-    if (itemSelected != null) {
-        DefaultTextValues(title = "Calorias", value = "259 kcal")
-        DefaultTextValues(title = "Preço", value = "R$ 5,99")
-    }
+
 }
 
 @Composable
 private fun SecondItem(
-    itens: List<Any>,
-    onItemClick: (Any) -> Unit,
-    itemSelected: Any?,
+    itens: List<Food>,
+    onItemClick: (Food) -> Unit,
+    itemSelected: Food?,
     onAddClick: () -> Unit
 ) {
     DefaultComboBox(
@@ -118,12 +122,12 @@ private fun SecondItem(
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
         canAdd = true,
         onAddClick = { onAddClick() },
-        onItemClick = { onItemClick(it) }
+        onItemClick = { onItemClick(it as Food) }
     )
 
     if (itemSelected != null) {
-        DefaultTextValues(title = "Calorias", value = "259 kcal")
-        DefaultTextValues(title = "Preço", value = "R$ 5,99")
+        DefaultTextValues(title = "Calorias/100g", value = itemSelected.caloriesIn100g.toString())
+        DefaultTextValues(title = "R$/g", value = "A fazer")
     }
 }
 
