@@ -1,4 +1,4 @@
-package com.gabrielfernandes.caloriescalculator.ui.screens.mainpage
+package com.gabrielfernandes.caloriescalculator.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -94,7 +94,8 @@ private fun FirstItem(
 
     DefaultTextField(
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        label = valueLabel
+        label = "Calorias",
+        isNumeric = true
     ) { newValue ->
         onValueChange(newValue)
     }
