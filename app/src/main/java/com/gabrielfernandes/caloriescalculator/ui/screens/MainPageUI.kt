@@ -94,7 +94,7 @@ private fun FirstItem(
 
     DefaultTextField(
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        label = valueLabel
+        label = "Calorias"
     ) { newValue ->
         onValueChange(newValue)
     }
