@@ -1,4 +1,4 @@
-package com.gabrielfernandes.caloriescalculator.ui.screens.mainpage
+package com.gabrielfernandes.caloriescalculator.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
