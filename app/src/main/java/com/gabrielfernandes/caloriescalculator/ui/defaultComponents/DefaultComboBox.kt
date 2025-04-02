@@ -109,6 +109,7 @@ fun DefaultComboBox(
                         )
                     },
                     onClick = {
+                        expanded = false
                         value = item.toString()
                         onItemClick(item)
                     }
