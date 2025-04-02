@@ -2,12 +2,12 @@ package com.gabrielfernandes.caloriescalculator.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +24,6 @@ import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextValues
 import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -40,9 +39,15 @@ fun MainPageUI(
         val foodList by viewModel.foodList.collectAsState()
         val firstItem by viewModel.firstItem.collectAsState()
         val secondItem by viewModel.secondItem.collectAsState()
+        val kcalFi by viewModel.kcalFi.collectAsState()
+        val gramSi by viewModel.gramSi.collectAsState()
 
 
         var requiredValue by remember { mutableStateOf("") }
+
+        LaunchedEffect(firstItem, secondItem, requiredValue) {
+            viewModel.kcalCalculator(requiredValue)
+        }
 
         Column(
             modifier = Modifier
@@ -60,12 +65,37 @@ fun MainPageUI(
                 itemSelected = firstItem,
                 onAddClick = { navController.navigate("addFood") }
             )
-            if (requiredValue.isNotEmpty()){
-                DefaultTextValues(title = "R$", value = requiredValue)
+            if (requiredValue.isNotEmpty()) {
+                firstItem?.let { firstItem ->
+                    Text(
+                        text = "$requiredValue gramas de ${firstItem.name} tem ${
+                            String.format(
+                                "%.2f",
+                                kcalFi
+                            )
+                        } calorias.",
+                        color = Color.White,
+                        modifier = Modifier.padding(horizontal = 30.dp)
+                    )
+                }
+                secondItem?.let { secondItem ->
+                    Text(
+                        text = "Para ${secondItem.name} ter ${
+                            String.format(
+                                "%.2f",
+                                kcalFi
+                            )
+                        } calorias são necessários ${String.format("%.2f", gramSi)} gramas.",
+                        color = Color.White,
+                        modifier = Modifier.padding(horizontal = 30.dp)
+                    )
+                }
+
             }
+
             SecondItem(
                 itens = foodList,
-                onItemClick = { second -> viewModel.setSecondItem(second as Food) },
+                onItemClick = { second -> viewModel.setSecondItem(second) },
                 itemSelected = secondItem,
                 onAddClick = { navController.navigate("addFood") }
             )
@@ -95,13 +125,15 @@ private fun FirstItem(
         onAddClick = { onAddClick() }
     )
     if (itemSelected != null) {
-        DefaultTextValues(title = "Calorias/100g", value = itemSelected.caloriesIn100g.toString())
-        DefaultTextValues(title = "R$/g", value = "A fazer")
+        Text(
+            text = "O Item ${itemSelected.name} \ntem ${itemSelected.caloriesIn100g} calorias em 100 gramas",
+            color = Color.White
+        )
     }
 
     DefaultTextField(
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        label = "Calorias",
+        label = "Gramas desejadas",
         isNumeric = true
     ) { newValue ->
         onValueChange(newValue)
@@ -126,8 +158,10 @@ private fun SecondItem(
     )
 
     if (itemSelected != null) {
-        DefaultTextValues(title = "Calorias/100g", value = itemSelected.caloriesIn100g.toString())
-        DefaultTextValues(title = "R$/g", value = "A fazer")
+        Text(
+            text = "O Item ${itemSelected.name} \ntem ${itemSelected.caloriesIn100g} calorias em 100 gramas",
+            color = Color.White
+        )
     }
 }
 
