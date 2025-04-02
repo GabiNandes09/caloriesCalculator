@@ -19,12 +19,16 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultClean
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextValues
+import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainPageUI() {
     Scaffold(
         containerColor = Color.Black
     ) { paddingValues ->
+        val viewModel: MainViewModel = koinViewModel()
+
         var requiredValue by remember { mutableStateOf("") }
 
         Column(
