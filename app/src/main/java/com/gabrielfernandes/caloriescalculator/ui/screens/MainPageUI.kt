@@ -96,8 +96,10 @@ fun MainPageUI(
             }
 
             DefaultChangePositionButton(
-                modifier = Modifier.padding(15.dp).size(55.dp),
-                onChangeButtonClick = {}
+                modifier = Modifier
+                    .padding(15.dp)
+                    .size(55.dp),
+                onChangeButtonClick = { viewModel.onChangeButtonClick() }
             )
 
             SecondItem(

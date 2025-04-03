@@ -62,4 +62,13 @@ class MainViewModel(
             }
         }
     }
+
+    fun onChangeButtonClick() {
+        val newFirstItem = _secondItem.value?.copy()
+        val newSecondItem = _firstItem.value?.copy()
+
+        _secondItem.value = newSecondItem
+        _firstItem.value = newFirstItem
+    }
+
 }

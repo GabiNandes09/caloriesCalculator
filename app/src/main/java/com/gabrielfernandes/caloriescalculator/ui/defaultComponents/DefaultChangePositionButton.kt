@@ -17,7 +17,7 @@ fun DefaultChangePositionButton(
     onChangeButtonClick: () -> Unit
 ) {
     IconButton(
-        onClick = { /*TODO*/ },
+        onClick = { onChangeButtonClick() },
         modifier = modifier
     ) {
         Icon(
