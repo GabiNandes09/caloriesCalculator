@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveAndCancelButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
@@ -33,6 +34,7 @@ fun AddFoodUI(navController: NavController) {
     Scaffold(
         containerColor = Color.Black
     ) { paddingValues ->
+        BackgroundUI()
         Column(
             modifier = Modifier
                 .padding(paddingValues)

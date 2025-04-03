@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChangePositionButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
@@ -33,9 +34,8 @@ import org.koin.androidx.compose.koinViewModel
 fun MainPageUI(
     navController: NavController
 ) {
-    Scaffold(
-        containerColor = Color.Black
-    ) { paddingValues ->
+    Scaffold { paddingValues ->
+        BackgroundUI()
         val viewModel: MainViewModel = koinViewModel()
 
         val foodList by viewModel.foodList.collectAsState()
