@@ -26,6 +26,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChangePositionButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -55,9 +56,14 @@ fun MainPageUI(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            DefaultHeader(
+                title = "Calculadora de calorias",
+                subTitle = "Comece selecionando um item",
+                modifier = Modifier.padding(vertical = 30.dp)
+            )
             FirstItem(
                 itens = foodList,
                 onItemClick = { first -> viewModel.setFirstItem(first) },

@@ -26,7 +26,12 @@ fun DefaultCleanButton(
             onClick = { onCleanClick() },
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.red))
         ) {
-            Text(text = "LIMPAR", fontSize = 20.sp, modifier = Modifier.padding(10.dp))
+            Text(
+                text = "LIMPAR",
+                fontSize = 20.sp,
+                modifier = Modifier.padding(10.dp),
+                color = Color.White
+            )
         }
     }
 }
