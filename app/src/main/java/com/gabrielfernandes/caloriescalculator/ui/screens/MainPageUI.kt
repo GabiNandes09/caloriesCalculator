@@ -82,7 +82,7 @@ fun MainPageUI(
                                 kcalFi
                             )
                         } calorias.",
-                        color = Color.White,
+                        color = Color.Black,
                         modifier = Modifier.padding(horizontal = 30.dp)
                     )
                 }
@@ -94,7 +94,7 @@ fun MainPageUI(
                                 kcalFi
                             )
                         } calorias são necessários ${String.format("%.2f", gramSi)} gramas.",
-                        color = Color.White,
+                        color = Color.Black,
                         modifier = Modifier.padding(horizontal = 30.dp)
                     )
                 }
@@ -142,7 +142,7 @@ private fun FirstItem(
     if (itemSelected != null) {
         Text(
             text = "O Item ${itemSelected.name} \ntem ${itemSelected.caloriesIn100g} calorias em 100 gramas",
-            color = Color.White
+            color = Color.Black
         )
     }
 
@@ -175,7 +175,7 @@ private fun SecondItem(
     if (itemSelected != null) {
         Text(
             text = "O Item ${itemSelected.name} \ntem ${itemSelected.caloriesIn100g} calorias em 100 gramas",
-            color = Color.White
+            color = Color.Black
         )
     }
 }
