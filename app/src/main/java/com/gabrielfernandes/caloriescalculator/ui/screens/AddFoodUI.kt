@@ -17,7 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveAndCancelButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.viewmodel.AddFoodViewModel
@@ -30,41 +32,54 @@ fun AddFoodUI(navController: NavController) {
     val hasError by viewModel.hasError.collectAsState()
     val savedItem by viewModel.saved.collectAsState()
 
-    Scaffold(
-        containerColor = Color.Black
-    ) { paddingValues ->
+    Scaffold { paddingValues ->
+        BackgroundUI()
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .fillMaxSize()
         ) {
-            DefaultTextField(
-                label = "Nome",
-                modifier = Modifier.padding(20.dp)
-            ) { name ->
-                viewModel.setName(name)
-            }
-            DefaultTextField(
-                label = "Calorias em 100g",
-                modifier = Modifier.padding(20.dp),
-                isNumeric = true
-            ) { kcal ->
-                if (kcal.isNotEmpty()){
-                    viewModel.setKcal(kcal)
-                }
-            }
-
-            DefaultSaveAndCancelButton(
+            DefaultHeader(
+                title = "Cadastro de itens",
+                subTitle = "Preencha todos os campos",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                onSaveClick = { viewModel.saveFood() },
-                onCancelClick = { navController.popBackStack() }
+                    .padding(30.dp)
+                    .weight(.3f)
             )
-        }
 
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 20.dp)
+                    .weight(.7f),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                DefaultTextField(
+                    label = "Nome",
+                    modifier = Modifier.padding(bottom = 20.dp)
+                ) { name ->
+                    viewModel.setName(name)
+                }
+
+                DefaultTextField(
+                    label = "Calorias em 100g",
+                    isNumeric = true,
+                    modifier = Modifier.padding(bottom = 20.dp)
+                ) { kcal ->
+                    if (kcal.isNotEmpty()) {
+                        viewModel.setKcal(kcal)
+                    }
+                }
+
+                DefaultSaveAndCancelButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onSaveClick = { viewModel.saveFood() },
+                    onCancelClick = { navController.popBackStack() }
+                )
+            }
+        }
     }
 
     if (hasError) {
@@ -77,11 +92,12 @@ fun AddFoodUI(navController: NavController) {
     }
 
     LaunchedEffect(savedItem) {
-        if (savedItem){
+        if (savedItem) {
             navController.popBackStack()
         }
     }
 }
+
 
 @Preview
 @Composable
