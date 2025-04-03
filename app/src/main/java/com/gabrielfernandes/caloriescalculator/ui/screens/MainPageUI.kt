@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChangePositionButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
@@ -92,6 +94,11 @@ fun MainPageUI(
                 }
 
             }
+
+            DefaultChangePositionButton(
+                modifier = Modifier.padding(15.dp).size(55.dp),
+                onChangeButtonClick = {}
+            )
 
             SecondItem(
                 itens = foodList,
