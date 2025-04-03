@@ -2,7 +2,9 @@ package com.gabrielfernandes.caloriescalculator.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
@@ -54,70 +56,92 @@ fun MainPageUI(
 
         Column(
             modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(paddingValues),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DefaultHeader(
                 title = "Calculadora de calorias",
                 subTitle = "Comece selecionando um item",
-                modifier = Modifier.padding(vertical = 30.dp)
-            )
-            FirstItem(
-                itens = foodList,
-                onItemClick = { first -> viewModel.setFirstItem(first) },
-                onValueChange = { newValue ->
-                    requiredValue = newValue
-                },
-                itemSelected = firstItem,
-                onAddClick = { navController.navigate("addFood") }
-            )
-            if (requiredValue.isNotEmpty()) {
-                firstItem?.let { firstItem ->
-                    Text(
-                        text = "$requiredValue gramas de ${firstItem.name} tem ${
-                            String.format(
-                                "%.2f",
-                                kcalFi
-                            )
-                        } calorias.",
-                        color = Color.Black,
-                        modifier = Modifier.padding(horizontal = 30.dp)
-                    )
-                }
-                secondItem?.let { secondItem ->
-                    Text(
-                        text = "Para ${secondItem.name} ter ${
-                            String.format(
-                                "%.2f",
-                                kcalFi
-                            )
-                        } calorias são necessários ${String.format("%.2f", gramSi)} gramas.",
-                        color = Color.Black,
-                        modifier = Modifier.padding(horizontal = 30.dp)
-                    )
-                }
-
-            }
-
-            DefaultChangePositionButton(
                 modifier = Modifier
-                    .padding(15.dp)
-                    .size(55.dp),
-                onChangeButtonClick = { viewModel.onChangeButtonClick() }
+                    .padding(vertical = 30.dp)
+                    .weight(.3f)
             )
-
-            SecondItem(
-                itens = foodList,
-                onItemClick = { second -> viewModel.setSecondItem(second) },
-                itemSelected = secondItem,
-                onAddClick = { navController.navigate("addFood") }
-            )
-            DefaultCleanButton(
-                modifier = Modifier.padding(top = 15.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 20.dp)
+                    .weight(.7f),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
+                FirstItem(
+                    itens = foodList,
+                    onItemClick = { first -> viewModel.setFirstItem(first) },
+                    itemSelected = firstItem,
+                    onAddClick = { navController.navigate("addFood") }
+                )
+                SecondItem(
+                    itens = foodList,
+                    onItemClick = { second -> viewModel.setSecondItem(second) },
+                    itemSelected = secondItem,
+                    onAddClick = { navController.navigate("addFood") }
+                )
+                DefaultTextField(
+                    modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
+                    label = "Gramas desejadas",
+                    isNumeric = true
+                ) { newValue ->
+                    requiredValue = newValue
+                }
+
+                if (requiredValue.isNotEmpty()) {
+                    firstItem?.let { firstItem ->
+                        Text(
+                            text = "$requiredValue gramas de ${firstItem.name} tem ${
+                                String.format(
+                                    "%.2f",
+                                    kcalFi
+                                )
+                            } calorias.",
+                            color = Color.Black,
+                            modifier = Modifier.padding(horizontal = 30.dp)
+                        )
+                    }
+                    secondItem?.let { secondItem ->
+                        Text(
+                            text = "Para ${secondItem.name} ter ${
+                                String.format(
+                                    "%.2f",
+                                    kcalFi
+                                )
+                            } calorias são necessários ${String.format("%.2f", gramSi)} gramas.",
+                            color = Color.Black,
+                            modifier = Modifier.padding(horizontal = 30.dp)
+                        )
+                    }
+
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DefaultCleanButton(
+                        modifier = Modifier.padding(top = 15.dp)
+                    ) {
+
+                    }
+                    DefaultChangePositionButton(
+                        modifier = Modifier
+                            .padding(15.dp)
+                            .size(55.dp),
+                        onChangeButtonClick = { viewModel.onChangeButtonClick() }
+                    )
+                }
             }
         }
     }
@@ -127,7 +151,6 @@ fun MainPageUI(
 private fun FirstItem(
     itens: List<Food>,
     onItemClick: (Food) -> Unit,
-    onValueChange: (String) -> Unit,
     itemSelected: Food?,
     onAddClick: () -> Unit
 ) {
@@ -145,15 +168,6 @@ private fun FirstItem(
             color = Color.Black
         )
     }
-
-    DefaultTextField(
-        modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        label = "Gramas desejadas",
-        isNumeric = true
-    ) { newValue ->
-        onValueChange(newValue)
-    }
-
 }
 
 @Composable
