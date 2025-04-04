@@ -71,12 +71,10 @@ fun AddFoodUI(navController: NavController) {
                 DefaultTextField(
                     label = "Calorias em 100g",
                     isNumeric = true,
-                    value = kcal.toString(),
+                    value = kcal,
                     modifier = Modifier.padding(bottom = 20.dp)
                 ) { newKcal ->
-                    if (newKcal.isNotEmpty()) {
-                        viewModel.setKcal(newKcal)
-                    }
+                    viewModel.setKcal(newKcal)
                 }
 
                 DefaultSaveAndCancelButton(
