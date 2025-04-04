@@ -1,5 +1,6 @@
 package com.gabrielfernandes.caloriescalculator.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,11 +20,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.gabrielfernandes.caloriescalculator.R
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChangePositionButton
@@ -32,6 +37,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeade
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
 import org.koin.androidx.compose.koinViewModel
+import java.util.Locale
 
 @Composable
 fun MainPageUI(
@@ -46,9 +52,7 @@ fun MainPageUI(
         val secondItem by viewModel.secondItem.collectAsState()
         val kcalFi by viewModel.kcalFi.collectAsState()
         val gramSi by viewModel.gramSi.collectAsState()
-
-
-        var requiredValue by remember { mutableStateOf("") }
+        val requiredValue by viewModel.requiredValue.collectAsState()
 
         LaunchedEffect(firstItem, secondItem, requiredValue) {
             viewModel.kcalCalculator(requiredValue)
@@ -58,21 +62,33 @@ fun MainPageUI(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            DefaultHeader(
-                title = "Calculadora de calorias",
-                subTitle = "Comece selecionando um item",
+            Column(
                 modifier = Modifier
-                    .padding(vertical = 30.dp)
-                    .weight(.3f)
-            )
+                    .fillMaxSize()
+                    .weight(.2f),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(30.dp))
+                        .size(80.dp)
+                )
+                DefaultHeader(
+                    title = "Calculadora de calorias",
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 20.dp)
-                    .weight(.7f),
+                    .weight(.8f),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -92,9 +108,10 @@ fun MainPageUI(
                 DefaultTextField(
                     modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
                     label = "Gramas desejadas",
+                    value = requiredValue,
                     isNumeric = true
                 ) { newValue ->
-                    requiredValue = newValue
+                    viewModel.setRequiredValue(newValue)
                 }
 
                 if (requiredValue.isNotEmpty()) {
@@ -102,6 +119,7 @@ fun MainPageUI(
                         Text(
                             text = "$requiredValue gramas de ${firstItem.name} tem ${
                                 String.format(
+                                    Locale.ROOT,
                                     "%.2f",
                                     kcalFi
                                 )
@@ -114,10 +132,15 @@ fun MainPageUI(
                         Text(
                             text = "Para ${secondItem.name} ter ${
                                 String.format(
+                                    Locale.ROOT,
                                     "%.2f",
                                     kcalFi
                                 )
-                            } calorias são necessários ${String.format("%.2f", gramSi)} gramas.",
+                            } calorias são necessários ${
+                                String.format(
+                                    Locale.ROOT, "%.2f", gramSi
+                                )
+                            } gramas.",
                             color = Color.Black,
                             modifier = Modifier.padding(horizontal = 30.dp)
                         )
@@ -133,7 +156,7 @@ fun MainPageUI(
                     DefaultCleanButton(
                         modifier = Modifier.padding(top = 15.dp)
                     ) {
-
+                        viewModel.onCleanButtonClick()
                     }
                     DefaultChangePositionButton(
                         modifier = Modifier
@@ -159,6 +182,7 @@ private fun FirstItem(
         label = "Selecione um item",
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
         canAdd = true,
+        selectedItem = itemSelected,
         onItemClick = { onItemClick(it as Food) },
         onAddClick = { onAddClick() }
     )
@@ -182,6 +206,7 @@ private fun SecondItem(
         label = "Selecione um item",
         modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
         canAdd = true,
+        selectedItem = itemSelected,
         onAddClick = { onAddClick() },
         onItemClick = { onItemClick(it as Food) }
     )

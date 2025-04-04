@@ -13,7 +13,7 @@ interface FoodDAO {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertFood(food: Food)
 
-    @Query("SELECT * FROM Food;")
+    @Query("SELECT * FROM Food ORDER BY Food.name")
     fun selectAll() : Flow<List<Food>>
 
     @Query("SELECT * FROM Food WHERE id = :id")

@@ -28,6 +28,9 @@ class MainViewModel(
     private val _gramSi = MutableStateFlow(0.0)
     val gramSi = _gramSi.asStateFlow()
 
+    private val _requiredValue = MutableStateFlow("")
+    val requiredValue = _requiredValue.asStateFlow()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             loadFoodList()
@@ -46,6 +49,10 @@ class MainViewModel(
 
     fun setSecondItem(food: Food) {
         _secondItem.value = food
+    }
+
+    fun setRequiredValue(value: String){
+        _requiredValue.value = value
     }
 
     fun kcalCalculator(kcal: String) {
@@ -69,6 +76,12 @@ class MainViewModel(
 
         _secondItem.value = newSecondItem
         _firstItem.value = newFirstItem
+    }
+
+    fun onCleanButtonClick(){
+        _requiredValue.value = ""
+        _firstItem.value = null
+        _secondItem.value = null
     }
 
 }

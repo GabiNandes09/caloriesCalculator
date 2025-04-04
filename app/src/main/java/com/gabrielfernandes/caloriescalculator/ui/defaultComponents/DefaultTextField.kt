@@ -23,15 +23,14 @@ fun DefaultTextField(
     modifier: Modifier = Modifier,
     label: String = "",
     isNumeric: Boolean = false,
+    value: String,
     onValueChange: (String) -> Unit
 ) {
-    var value by remember { mutableStateOf("") }
 
     Column(modifier = modifier) {
         TextField(
             value = value,
             onValueChange = { newValue ->
-                value = newValue
                 onValueChange(newValue)
             },
             modifier = Modifier.fillMaxWidth().border(2.dp, Color.Black),
@@ -60,6 +59,7 @@ fun DefaultTextField(
 private fun Preview() {
     DefaultTextField(
         label = "Teste de label",
+        value = "",
         onValueChange = {}
     )
 }

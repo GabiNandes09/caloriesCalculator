@@ -1,13 +1,11 @@
 package com.gabrielfernandes.caloriescalculator.ui.defaultComponents
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -28,13 +26,13 @@ fun BackgroundUI() {
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(.3f)
+                    .weight(.2f)
                     .background(colorResource(id = R.color.c1))
             )
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(.7f)
+                    .weight(.8f)
                     .background(Color.White)
             )
         }
