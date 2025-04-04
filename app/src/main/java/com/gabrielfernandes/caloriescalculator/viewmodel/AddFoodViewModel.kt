@@ -13,8 +13,11 @@ import kotlinx.coroutines.launch
 class AddFoodViewModel(
     private val foodDAO: FoodDAO
 ) : ViewModel() {
-    private val name = MutableStateFlow("")
-    private val kcal = MutableStateFlow(0.0)
+    private val _name = MutableStateFlow("")
+    val name = _name.asStateFlow()
+
+    private val _kcal = MutableStateFlow(0.0)
+    val kcal = _kcal.asStateFlow()
 
     private val _hasError = MutableStateFlow(false)
     val hasError = _hasError.asStateFlow()
@@ -23,11 +26,11 @@ class AddFoodViewModel(
     val saved = _saved.asStateFlow()
 
     fun setName(name: String) {
-        this.name.value = name.replaceFirstChar { it.uppercase() }
+        _name.value = name.replaceFirstChar { it.uppercase() }
     }
 
     fun setKcal(kcal: String) {
-        this.kcal.value = convertToDouble(kcal)
+        _kcal.value = convertToDouble(kcal)
     }
 
     fun saveFood() {

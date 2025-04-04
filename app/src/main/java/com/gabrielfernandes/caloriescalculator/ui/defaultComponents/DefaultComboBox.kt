@@ -1,13 +1,11 @@
 package com.gabrielfernandes.caloriescalculator.ui.defaultComponents
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -29,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -38,11 +35,16 @@ fun DefaultComboBox(
     label: String = "",
     itens: List<Any>,
     onItemClick: (Any) -> Unit,
+    selectedItem: Any?,
     canAdd: Boolean = false,
     onAddClick: () -> Unit = {}
 ) {
     var expanded by remember { mutableStateOf(false) }
     var value by remember { mutableStateOf("") }
+
+    LaunchedEffect(selectedItem) {
+        value = selectedItem?.toString() ?: ""
+    }
 
     Column(
         modifier = modifier
@@ -130,6 +132,7 @@ private fun Preview() {
     DefaultComboBox(
         label = "teste de label",
         itens = emptyList(),
+        selectedItem = null,
         onItemClick = {}
     )
 }
