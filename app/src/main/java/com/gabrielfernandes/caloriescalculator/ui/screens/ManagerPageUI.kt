@@ -1,14 +1,21 @@
 package com.gabrielfernandes.caloriescalculator.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -25,7 +32,29 @@ fun ManagerPageUI(navController: NavController) {
 
     val foodList by viewModel.foodList.collectAsState()
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .padding(top = 30.dp)
+                    .fillMaxWidth()
+            ) {
+                IconButton(
+                    onClick = { navController.popBackStack() },
+                    modifier = Modifier
+                        .padding(start = 20.dp, top = 10.dp)
+                        .size(30.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = Color.Black,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
+        }
+    ) { paddingValues ->
         BackgroundUI()
         Column(
             modifier = Modifier.padding(paddingValues)
