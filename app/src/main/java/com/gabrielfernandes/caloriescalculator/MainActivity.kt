@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.screens.AddFoodUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.MainPageUI
+import com.gabrielfernandes.caloriescalculator.ui.screens.ManagerPageUI
 import com.gabrielfernandes.caloriescalculator.ui.theme.CaloriesCalculatorTheme
 
 class MainActivity : ComponentActivity() {
