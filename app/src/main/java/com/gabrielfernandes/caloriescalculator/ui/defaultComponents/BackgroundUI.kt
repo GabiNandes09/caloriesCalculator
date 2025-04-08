@@ -26,13 +26,13 @@ fun BackgroundUI() {
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(.2f)
+                    .weight(.3f)
                     .background(colorResource(id = R.color.c1))
             )
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(.8f)
+                    .weight(.9f)
                     .background(Color.White)
             )
         }
