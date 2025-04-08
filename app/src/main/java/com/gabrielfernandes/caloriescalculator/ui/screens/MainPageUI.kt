@@ -50,7 +50,9 @@ fun MainPageUI(
                 modifier = Modifier.padding(top = 30.dp).fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                DefaultOptionsButton()
+                DefaultOptionsButton{
+                    navController.navigate("manager")
+                }
             }
         }
     ) { paddingValues ->

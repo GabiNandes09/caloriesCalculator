@@ -5,24 +5,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gabrielfernandes.caloriescalculator.database.entity.Food
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTableWithRows
+import com.gabrielfernandes.caloriescalculator.viewmodel.ManagerPageViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ManagerPageUI() {
-    val rows = listOf(
-        Food(id = 1, name = "Banana", caloriesIn100g = 25.0),
-        Food(id = 2, name = "Maça", caloriesIn100g = 32.0),
-        Food(id = 3, name = "Pasta de amendoim penauty bunny", caloriesIn100g = 32.0)
-    )
+fun ManagerPageUI(navController: NavController) {
+    val viewModel: ManagerPageViewModel = koinViewModel()
+
+    val foodList by viewModel.foodList.collectAsState()
+
     Scaffold { paddingValues ->
         BackgroundUI()
         Column(
@@ -41,7 +43,7 @@ fun ManagerPageUI() {
             ) {
                 DefaultTableWithRows(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    rows = rows //todo colocar a lista aqui
+                    rows = foodList
                 )
             }
         }
@@ -51,5 +53,7 @@ fun ManagerPageUI() {
 @Preview
 @Composable
 private fun Preview() {
-    ManagerPageUI()
+    val navController = rememberNavController()
+
+    ManagerPageUI(navController)
 }

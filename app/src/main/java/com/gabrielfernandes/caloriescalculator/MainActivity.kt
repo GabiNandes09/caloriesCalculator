@@ -27,6 +27,9 @@ class MainActivity : ComponentActivity() {
                     composable("addFood"){
                         AddFoodUI(navController)
                     }
+                    composable("manager") {
+                        ManagerPageUI(navController)
+                    }
                 }
 
             }

@@ -17,12 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun DefaultOptionsButton() {
+fun DefaultOptionsButton(
+    onManagerClick: () -> Unit
+) {
     var expanded by remember {
         mutableStateOf(false)
     }
-
-    val itens = listOf("Gerenciar itens")
 
 
     Column {
@@ -39,20 +39,18 @@ fun DefaultOptionsButton() {
             onDismissRequest = { expanded = false },
             containerColor = Color.White
         ) {
-
-            itens.forEach { item ->
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = item,
-                            color = Color.Black
-                        )
-                    },
-                    onClick = {
-                        expanded = false
-                    }
-                )
-            }
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = "Gerenciar itens",
+                        color = Color.Black
+                    )
+                },
+                onClick = {
+                    expanded = false
+                    onManagerClick()
+                }
+            )
         }
     }
 }
@@ -60,5 +58,5 @@ fun DefaultOptionsButton() {
 @Preview
 @Composable
 private fun Preview() {
-    DefaultOptionsButton()
+    DefaultOptionsButton {}
 }
