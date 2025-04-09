@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.gabrielfernandes.caloriescalculator.ui.screens.AddFoodUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.MainPageUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.ManagerPageUI
@@ -20,11 +22,16 @@ class MainActivity : ComponentActivity() {
             CaloriesCalculatorTheme {
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "main" ){
-                    composable("main"){
+                NavHost(navController = navController, startDestination = "main") {
+                    composable("main") {
                         MainPageUI(navController = navController)
                     }
-                    composable("addFood/{id}"){ entry ->
+                    composable(
+                        route = "addFood/{id}",
+                        arguments = listOf(navArgument("id") {
+                            type = NavType.IntType
+                        })
+                    ) { entry ->
                         entry.arguments?.getInt("id")?.let { id ->
                             AddFoodUI(navController, id)
                         }

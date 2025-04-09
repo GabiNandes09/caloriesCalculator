@@ -72,7 +72,8 @@ fun ManagerPageUI(navController: NavController) {
             ) {
                 DefaultTableWithRows(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    rows = foodList
+                    rows = foodList,
+                    onRowClick = { navController.navigate("addFood/${it}") }
                 )
             }
         }

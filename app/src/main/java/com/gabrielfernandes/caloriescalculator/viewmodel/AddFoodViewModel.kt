@@ -34,7 +34,7 @@ class AddFoodViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 val food = foodDAO.selectById(id)
                 _name.value = food.name
-                _kcal.value = food.name
+                _kcal.value = food.caloriesIn100g.toString()
             }
         }
     }

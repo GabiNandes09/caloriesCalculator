@@ -2,6 +2,7 @@ package com.gabrielfernandes.caloriescalculator.ui.defaultComponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -28,7 +29,8 @@ import com.gabrielfernandes.caloriescalculator.database.entity.Food
 @Composable
 fun DefaultTableWithRows(
     modifier: Modifier = Modifier,
-    rows: List<Food>
+    rows: List<Food>,
+    onRowClick: (Int) -> Unit
 ) {
     val headers = listOf("ID", "Nome", "kcal/100g")
     Column(
@@ -39,7 +41,7 @@ fun DefaultTableWithRows(
             modifier = Modifier.heightIn(max = 450.dp)
         ) {
             items(rows) { item ->
-                TableItens(item)
+                TableItens(item, onRowClick = { onRowClick(it) })
             }
         }
     }
@@ -70,11 +72,15 @@ private fun Header(
 }
 
 @Composable
-private fun TableItens(food: Food) {
+private fun TableItens(
+    food: Food,
+    onRowClick: (Int) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(IntrinsicSize.Min),
+            .height(IntrinsicSize.Min)
+            .clickable { food.id?.let { onRowClick(it) } },
         verticalAlignment = Alignment.CenterVertically
     ) {
         TableCell(text = food.id.toString(), modifier = Modifier.weight(1f))
@@ -109,5 +115,5 @@ fun TableCell(
 @Preview
 @Composable
 private fun Preview() {
-    DefaultTableWithRows(rows = emptyList())
+    DefaultTableWithRows(rows = emptyList(), onRowClick = {})
 }
