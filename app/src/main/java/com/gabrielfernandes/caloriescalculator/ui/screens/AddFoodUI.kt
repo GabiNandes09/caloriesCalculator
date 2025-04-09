@@ -37,10 +37,11 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveA
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.viewmodel.AddFoodViewModel
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
-fun AddFoodUI(navController: NavController) {
-    val viewModel: AddFoodViewModel = koinViewModel()
+fun AddFoodUI(navController: NavController, id: Int) {
+    val viewModel: AddFoodViewModel = koinViewModel(parameters = { parametersOf(id) })
 
     val hasError by viewModel.hasError.collectAsState()
     val savedItem by viewModel.saved.collectAsState()
@@ -140,5 +141,5 @@ fun AddFoodUI(navController: NavController) {
 @Composable
 private fun Preview() {
     val navController = rememberNavController()
-    AddFoodUI(navController)
+    AddFoodUI(navController, 0)
 }

@@ -24,8 +24,10 @@ class MainActivity : ComponentActivity() {
                     composable("main"){
                         MainPageUI(navController = navController)
                     }
-                    composable("addFood"){
-                        AddFoodUI(navController)
+                    composable("addFood/{id}"){ entry ->
+                        entry.arguments?.getInt("id")?.let { id ->
+                            AddFoodUI(navController, id)
+                        }
                     }
                     composable("manager") {
                         ManagerPageUI(navController)

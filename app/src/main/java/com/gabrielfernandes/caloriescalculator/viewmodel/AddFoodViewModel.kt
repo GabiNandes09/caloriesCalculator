@@ -11,8 +11,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AddFoodViewModel(
+    private val id: Int,
     private val foodDAO: FoodDAO
 ) : ViewModel() {
+
     private val _name = MutableStateFlow("")
     val name = _name.asStateFlow()
 
@@ -24,6 +26,18 @@ class AddFoodViewModel(
 
     private val _saved = MutableStateFlow(false)
     val saved = _saved.asStateFlow()
+
+    private val _foodToEdit = MutableStateFlow<Food?>(null)
+
+    init {
+        if (id > 0){
+            viewModelScope.launch(Dispatchers.IO) {
+                val food = foodDAO.selectById(id)
+                _name.value = food.name
+                _kcal.value = food.name
+            }
+        }
+    }
 
     fun setName(name: String) {
         _name.value = name
@@ -40,18 +54,34 @@ class AddFoodViewModel(
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                foodDAO.insertFood(
-                    Food(
-                        name = name.value.replaceFirstChar { it.uppercase() },
-                        caloriesIn100g = convertToDouble(kcal.value)
+            if (_foodToEdit.value == null){
+                try {
+                    foodDAO.insertFood(
+                        Food(
+                            name = name.value.replaceFirstChar { it.uppercase() },
+                            caloriesIn100g = convertToDouble(kcal.value)
+                        )
                     )
-                )
-                _saved.value = true
-            } catch (e: Exception){
-                e.printStackTrace()
-                _hasError.value = true
+                    _saved.value = true
+                } catch (e: Exception){
+                    e.printStackTrace()
+                    _hasError.value = true
+                }
+            } else {
+                try {
+                    foodDAO.updateFood(Food(
+                        id = id,
+                        name = _name.value,
+                        caloriesIn100g = convertToDouble(_kcal.value)
+                    ))
+
+                    _saved.value = true
+                } catch (e: Exception){
+                    e.printStackTrace()
+                    _hasError.value = true
+                }
             }
+
         }
     }
 

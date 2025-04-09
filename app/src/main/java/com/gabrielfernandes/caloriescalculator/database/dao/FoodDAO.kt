@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import kotlinx.coroutines.flow.Flow
 
@@ -21,4 +22,7 @@ interface FoodDAO {
 
     @Delete
     fun delete(food: Food)
+
+    @Update
+    fun updateFood(food: Food)
 }

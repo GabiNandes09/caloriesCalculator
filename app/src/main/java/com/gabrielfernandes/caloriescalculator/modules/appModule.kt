@@ -11,8 +11,9 @@ val appModule = module {
             foodDAO = get()
         )
     }
-    factory {
+    factory { (id: Int) ->
         AddFoodViewModel(
+            id = id,
             foodDAO = get()
         )
     }

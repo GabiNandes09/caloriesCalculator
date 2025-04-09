@@ -109,13 +109,13 @@ fun MainPageUI(
                     itens = foodList,
                     onItemClick = { first -> viewModel.setFirstItem(first) },
                     itemSelected = firstItem,
-                    onAddClick = { navController.navigate("addFood") }
+                    onAddClick = { navController.navigate("addFood/0") }
                 )
                 SecondItem(
                     itens = foodList,
                     onItemClick = { second -> viewModel.setSecondItem(second) },
                     itemSelected = secondItem,
-                    onAddClick = { navController.navigate("addFood") }
+                    onAddClick = { navController.navigate("addFood/0") }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
