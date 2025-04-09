@@ -35,6 +35,7 @@ class AddFoodViewModel(
                 val food = foodDAO.selectById(id)
                 _name.value = food.name
                 _kcal.value = food.caloriesIn100g.toString()
+                _foodToEdit.value = food
             }
         }
     }
