@@ -21,7 +21,7 @@ interface FoodDAO {
     fun selectAll() : Flow<List<Food>>
 
     @RawQuery(observedEntities = [Food::class])
-    fun selectAllWithOrderBy(query: SupportSQLiteQuery): Flow<List<Food>>
+    fun selectAllWithFilterAndOrderBy(query: SupportSQLiteQuery): Flow<List<Food>>
 
     @Query("SELECT * FROM Food WHERE id = :id")
     fun selectById(id: Int) : Food
@@ -32,8 +32,19 @@ interface FoodDAO {
     @Update
     fun updateFood(food: Food)
 
-    fun buildOrderByQuery(orderBy: String): SimpleSQLiteQuery {
-        val sql = "SELECT * FROM Food ORDER BY ${orderBy}, NAME ASC"
-        return SimpleSQLiteQuery(sql)
+    fun buildFilterAndOrderByQuery(filter: String, orderBy: String): SimpleSQLiteQuery {
+        val sql = """
+        SELECT * FROM Food
+        WHERE 
+            ID LIKE ? OR
+            NAME LIKE ? OR
+            calories_in_100_g LIKE ?
+        ORDER BY ?, NAME ASC
+    """.trimIndent()
+
+        val likeFilter = "%${filter}%"
+
+        return SimpleSQLiteQuery(sql, arrayOf(likeFilter, likeFilter, likeFilter, orderBy))
     }
+
 }

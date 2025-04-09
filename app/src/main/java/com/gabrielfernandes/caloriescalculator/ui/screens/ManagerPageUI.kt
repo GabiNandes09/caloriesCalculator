@@ -37,6 +37,7 @@ fun ManagerPageUI(navController: NavController) {
     val viewModel: ManagerPageViewModel = koinViewModel()
 
     val foodList by viewModel.foodList.collectAsState()
+    val filter by viewModel.filter.collectAsState()
 
     Scaffold(
         topBar = {
@@ -60,7 +61,7 @@ fun ManagerPageUI(navController: NavController) {
                 }
             }
         },
-        floatingActionButton = { DefaultAddFloatingButton{navController.navigate("addFood/0")} },
+        floatingActionButton = { DefaultAddFloatingButton { navController.navigate("addFood/0") } },
         floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
         Background2UI()
@@ -79,11 +80,18 @@ fun ManagerPageUI(navController: NavController) {
                     .weight(.8f)
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp, vertical = 10.dp)
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    DefaultSearchBar()
-                    DefaultOrderByButton{orderBy ->
+                    DefaultSearchBar(
+                        value = filter,
+                        onValueChange = { newValue ->
+                            viewModel.setFilter(newValue)
+                        }
+                    )
+                    DefaultOrderByButton { orderBy ->
                         viewModel.setOrderBy(orderBy)
                     }
                 }
