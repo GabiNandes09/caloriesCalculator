@@ -34,6 +34,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChang
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOptionsButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
 import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -43,7 +44,18 @@ import java.util.Locale
 fun MainPageUI(
     navController: NavController
 ) {
-    Scaffold { paddingValues ->
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier.padding(top = 30.dp).fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                DefaultOptionsButton{
+                    navController.navigate("manager")
+                }
+            }
+        }
+    ) { paddingValues ->
         BackgroundUI()
         val viewModel: MainViewModel = koinViewModel()
 
@@ -97,13 +109,13 @@ fun MainPageUI(
                     itens = foodList,
                     onItemClick = { first -> viewModel.setFirstItem(first) },
                     itemSelected = firstItem,
-                    onAddClick = { navController.navigate("addFood") }
+                    onAddClick = { navController.navigate("addFood/0") }
                 )
                 SecondItem(
                     itens = foodList,
                     onItemClick = { second -> viewModel.setSecondItem(second) },
                     itemSelected = secondItem,
-                    onAddClick = { navController.navigate("addFood") }
+                    onAddClick = { navController.navigate("addFood/0") }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
