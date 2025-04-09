@@ -27,7 +27,8 @@ class AddFoodViewModel(
     private val _saved = MutableStateFlow(false)
     val saved = _saved.asStateFlow()
 
-    private val _foodToEdit = MutableStateFlow<Food?>(null)
+    private val _isEditing = MutableStateFlow(false)
+    val isEditing = _isEditing.asStateFlow()
 
     init {
         if (id > 0){
@@ -35,7 +36,7 @@ class AddFoodViewModel(
                 val food = foodDAO.selectById(id)
                 _name.value = food.name
                 _kcal.value = food.caloriesIn100g.toString()
-                _foodToEdit.value = food
+                _isEditing.value = true
             }
         }
     }
@@ -55,7 +56,7 @@ class AddFoodViewModel(
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            if (_foodToEdit.value == null){
+            if (!_isEditing.value){
                 try {
                     foodDAO.insertFood(
                         Food(
@@ -72,7 +73,7 @@ class AddFoodViewModel(
                 try {
                     foodDAO.updateFood(Food(
                         id = id,
-                        name = _name.value,
+                        name = _name.value.replaceFirstChar { it.uppercase() },
                         caloriesIn100g = convertToDouble(_kcal.value)
                     ))
 
@@ -88,5 +89,9 @@ class AddFoodViewModel(
 
     fun resetError(){
         _hasError.value = false
+    }
+
+    fun onDeleteClick(){
+
     }
 }

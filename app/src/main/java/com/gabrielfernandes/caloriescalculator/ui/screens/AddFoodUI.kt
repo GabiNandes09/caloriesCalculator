@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultDialogYesNo
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOptionsButton
@@ -47,6 +48,9 @@ fun AddFoodUI(navController: NavController, id: Int) {
     val savedItem by viewModel.saved.collectAsState()
     val name by viewModel.name.collectAsState()
     val kcal by viewModel.kcal.collectAsState()
+    val isEditing by viewModel.isEditing.collectAsState()
+
+    var tryDelete by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -113,8 +117,12 @@ fun AddFoodUI(navController: NavController, id: Int) {
 
                 DefaultSaveAndCancelButton(
                     modifier = Modifier.fillMaxWidth(),
+                    isEditing = isEditing,
                     onSaveClick = { viewModel.saveFood() },
-                    onCancelClick = { navController.popBackStack() }
+                    onCancelClick = { navController.popBackStack() },
+                    onDeleteClick = {
+
+                    }
                 )
             }
         }
@@ -127,6 +135,18 @@ fun AddFoodUI(navController: NavController, id: Int) {
         ) {
             viewModel.resetError()
         }
+    }
+
+    if (true){
+        DefaultDialogYesNo(
+            title = "Deletar item?",
+            message = "Essa ação é IRREVERSÍVEL, deseja continuar?",
+            onCancelButtonClick = {tryDelete = false},
+            onConfirmButtonClick = {
+                viewModel.onDeleteClick()
+                navController.popBackStack()
+            }
+        )
     }
 
     LaunchedEffect(savedItem) {
