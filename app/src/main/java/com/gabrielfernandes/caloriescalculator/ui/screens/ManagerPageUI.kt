@@ -56,7 +56,7 @@ fun ManagerPageUI(navController: NavController) {
                 }
             }
         },
-        floatingActionButton = {DefaultAddFloatingButton()},
+        floatingActionButton = { DefaultAddFloatingButton{navController.navigate("addFood/0")} },
         floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
         Background2UI()

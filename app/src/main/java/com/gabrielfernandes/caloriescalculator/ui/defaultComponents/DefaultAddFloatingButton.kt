@@ -14,9 +14,11 @@ import androidx.compose.ui.unit.dp
 import com.gabrielfernandes.caloriescalculator.R
 
 @Composable
-fun DefaultAddFloatingButton() {
+fun DefaultAddFloatingButton(
+    onClick: () -> Unit
+) {
     IconButton(
-        onClick = { /*TODO*/ },
+        onClick = { onClick() },
         colors = IconButtonDefaults.iconButtonColors(containerColor = colorResource(id = R.color.c1)),
         modifier = Modifier.size(60.dp)
         ) {
