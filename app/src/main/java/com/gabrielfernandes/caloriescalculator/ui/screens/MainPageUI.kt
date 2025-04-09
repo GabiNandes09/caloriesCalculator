@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChangePositionButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOptionsButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
@@ -47,11 +49,29 @@ fun MainPageUI(
     Scaffold(
         topBar = {
             Row(
-                modifier = Modifier.padding(top = 30.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 30.dp)
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                DefaultOptionsButton{
-                    navController.navigate("manager")
+                var version by remember { mutableStateOf(false) }
+
+                val context = LocalContext.current
+                val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+                val versionName = packageInfo.versionName
+
+                DefaultOptionsButton(
+                    onManagerClick = { navController.navigate("manager") },
+                    onVersionClick = { version = true }
+                )
+
+                if (version) {
+                    DefaultErrorMessage(
+                        title = "VERSÃO",
+                        message = "By: Gabriel Fernandes\nVersão: $versionName"
+                    ) {
+                        version = false
+                    }
                 }
             }
         }
