@@ -121,7 +121,7 @@ fun AddFoodUI(navController: NavController, id: Int) {
                     onSaveClick = { viewModel.saveFood() },
                     onCancelClick = { navController.popBackStack() },
                     onDeleteClick = {
-
+                        tryDelete = true
                     }
                 )
             }
@@ -137,7 +137,7 @@ fun AddFoodUI(navController: NavController, id: Int) {
         }
     }
 
-    if (true){
+    if (tryDelete){
         DefaultDialogYesNo(
             title = "Deletar item?",
             message = "Essa ação é IRREVERSÍVEL, deseja continuar?",

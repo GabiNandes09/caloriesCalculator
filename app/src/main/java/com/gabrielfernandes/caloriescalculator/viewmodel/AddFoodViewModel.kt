@@ -92,6 +92,12 @@ class AddFoodViewModel(
     }
 
     fun onDeleteClick(){
-
+        viewModelScope.launch(Dispatchers.IO) {
+            foodDAO.delete(Food(
+                id = id,
+                name = _name.value.replaceFirstChar { it.uppercase() },
+                caloriesIn100g = convertToDouble(_kcal.value)
+            ))
+        }
     }
 }
