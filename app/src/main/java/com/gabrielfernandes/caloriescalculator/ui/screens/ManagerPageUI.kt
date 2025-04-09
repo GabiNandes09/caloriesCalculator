@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -20,7 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2UI
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFloatingButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTableWithRows
 import com.gabrielfernandes.caloriescalculator.viewmodel.ManagerPageViewModel
@@ -53,9 +55,11 @@ fun ManagerPageUI(navController: NavController) {
                     )
                 }
             }
-        }
+        },
+        floatingActionButton = {DefaultAddFloatingButton()},
+        floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
-        BackgroundUI()
+        Background2UI()
         Column(
             modifier = Modifier.padding(paddingValues)
         ) {
