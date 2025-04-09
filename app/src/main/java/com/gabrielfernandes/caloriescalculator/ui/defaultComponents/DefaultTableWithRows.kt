@@ -3,6 +3,7 @@ package com.gabrielfernandes.caloriescalculator.ui.defaultComponents
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -40,6 +41,16 @@ fun DefaultTableWithRows(
         LazyColumn(
             modifier = Modifier.heightIn(max = 450.dp)
         ) {
+            if (rows.isEmpty()) {
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "Nenhum item encontrado", color = Color.Gray)
+                    }
+                }
+            }
             items(rows) { item ->
                 TableItens(item, onRowClick = { onRowClick(it) })
             }
