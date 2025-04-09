@@ -102,6 +102,7 @@ fun DefaultComboBox(
                         )
                     },
                     onClick = {
+                        expanded = false
                         onAddClick()
                     }
                 )

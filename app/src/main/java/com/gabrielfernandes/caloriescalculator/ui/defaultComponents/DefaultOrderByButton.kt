@@ -22,12 +22,12 @@ fun DefaultOrderByButton(
     var expanded by remember{ mutableStateOf(false)}
 
     val itensList = listOf(
-        OrderOption("ID 1-9", "ID ASC"),
-        OrderOption("ID 9-1", "ID DESC"),
+        OrderOption("ID ASC", "ID ASC"),
+        OrderOption("ID DESC", "ID DESC"),
         OrderOption("Nome A-Z", "NAME ASC"),
         OrderOption("Nome Z-A", "NAME DESC"),
-        OrderOption("kcal 1-9", "calories_in_100_g ASC"),
-        OrderOption("kcal 9-1", "calories_in_100_g DESC"),
+        OrderOption("kcal ASC", "calories_in_100_g ASC"),
+        OrderOption("kcal DESC", "calories_in_100_g DESC"),
     )
 
 

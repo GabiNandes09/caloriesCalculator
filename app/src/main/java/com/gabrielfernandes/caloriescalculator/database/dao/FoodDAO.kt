@@ -39,12 +39,12 @@ interface FoodDAO {
             ID LIKE ? OR
             NAME LIKE ? OR
             calories_in_100_g LIKE ?
-        ORDER BY ?, NAME ASC
+        ORDER BY $orderBy, NAME ASC
     """.trimIndent()
 
         val likeFilter = "%${filter}%"
 
-        return SimpleSQLiteQuery(sql, arrayOf(likeFilter, likeFilter, likeFilter, orderBy))
+        return SimpleSQLiteQuery(sql, arrayOf(likeFilter, likeFilter, likeFilter))
     }
 
 }
