@@ -47,9 +47,3 @@ fun BackgroundUI() {
         )
     }
 }
-
-@Preview
-@Composable
-private fun Preview() {
-    BackgroundUI()
-}

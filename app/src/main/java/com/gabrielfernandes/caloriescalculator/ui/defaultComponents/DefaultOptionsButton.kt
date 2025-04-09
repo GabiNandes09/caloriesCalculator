@@ -18,7 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DefaultOptionsButton(
-    onManagerClick: () -> Unit
+    onManagerClick: () -> Unit,
+    onVersionClick: () -> Unit
 ) {
     var expanded by remember {
         mutableStateOf(false)
@@ -51,12 +52,18 @@ fun DefaultOptionsButton(
                     onManagerClick()
                 }
             )
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = "Versão",
+                        color = Color.Black
+                    )
+                },
+                onClick = {
+                    expanded = false
+                    onVersionClick()
+                }
+            )
         }
     }
-}
-
-@Preview
-@Composable
-private fun Preview() {
-    DefaultOptionsButton {}
 }

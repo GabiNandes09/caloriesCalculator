@@ -12,8 +12,8 @@ android {
         applicationId = "com.gabrielfernandes.caloriescalculator"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 9
+        versionName = "1.${versionCode}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
