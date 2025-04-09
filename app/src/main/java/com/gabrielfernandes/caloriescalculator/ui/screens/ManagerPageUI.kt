@@ -82,7 +82,7 @@ fun ManagerPageUI(navController: NavController) {
                     horizontalArrangement = Arrangement.End
                 ) {
                     DefaultOrderByButton{orderBy ->
-
+                        viewModel.setOrderBy(orderBy)
                     }
                 }
                 DefaultTableWithRows(

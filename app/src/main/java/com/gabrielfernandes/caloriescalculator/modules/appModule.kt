@@ -17,7 +17,7 @@ val appModule = module {
             foodDAO = get()
         )
     }
-    factory {
+    single {
         ManagerPageViewModel(
             foodDAO = get()
         )
