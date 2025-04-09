@@ -27,6 +27,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2U
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFloatingButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOrderByButton
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSearchBar
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTableWithRows
 import com.gabrielfernandes.caloriescalculator.viewmodel.ManagerPageViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -81,6 +82,7 @@ fun ManagerPageUI(navController: NavController) {
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp).fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
+                    DefaultSearchBar()
                     DefaultOrderByButton{orderBy ->
                         viewModel.setOrderBy(orderBy)
                     }
