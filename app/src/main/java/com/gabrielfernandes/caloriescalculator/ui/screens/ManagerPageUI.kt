@@ -1,5 +1,7 @@
 package com.gabrielfernandes.caloriescalculator.ui.screens
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2UI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFloatingButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOrderByButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTableWithRows
 import com.gabrielfernandes.caloriescalculator.viewmodel.ManagerPageViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -72,8 +75,16 @@ fun ManagerPageUI(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .weight(.7f)
+                    .weight(.8f)
             ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp).fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    DefaultOrderByButton{orderBy ->
+
+                    }
+                }
                 DefaultTableWithRows(
                     modifier = Modifier.padding(horizontal = 20.dp),
                     rows = foodList,

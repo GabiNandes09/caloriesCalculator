@@ -24,7 +24,8 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController = navController, startDestination = "main") {
                     composable("main") {
-                        MainPageUI(navController = navController)
+                        //MainPageUI(navController = navController)
+                        ManagerPageUI(navController)
                     }
                     composable(
                         route = "addFood/{id}",
