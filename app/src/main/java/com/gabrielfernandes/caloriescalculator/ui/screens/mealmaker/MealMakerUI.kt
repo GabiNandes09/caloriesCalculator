@@ -8,11 +8,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2UI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.components.MealMakerChooseFood
+import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.components.MealMakerItensInclude
 
 @Composable
 fun MealMakerUI(navController: NavController) {
@@ -36,6 +38,7 @@ fun MealMakerUI(navController: NavController) {
                     .weight(.9f)
             ) {
                 MealMakerChooseFood()
+                MealMakerItensInclude(modifier = Modifier.padding(20.dp))
             }
         }
     }
