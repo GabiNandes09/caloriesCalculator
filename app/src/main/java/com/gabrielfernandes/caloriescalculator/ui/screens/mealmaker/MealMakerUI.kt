@@ -37,7 +37,7 @@ fun MealMakerUI(navController: NavController) {
                     .fillMaxSize()
                     .weight(.9f)
             ) {
-                MealMakerChooseFood()
+                MealMakerChooseFood(){}
                 MealMakerItensInclude(modifier = Modifier.padding(20.dp))
             }
         }
