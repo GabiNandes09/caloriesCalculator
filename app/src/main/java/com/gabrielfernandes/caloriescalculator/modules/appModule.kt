@@ -4,6 +4,7 @@ import com.gabrielfernandes.caloriescalculator.viewmodel.AddFoodViewModel
 import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
 import com.gabrielfernandes.caloriescalculator.viewmodel.ManagerPageViewModel
 import com.gabrielfernandes.caloriescalculator.viewmodel.MealMakerChooseFoodViewModel
+import com.gabrielfernandes.caloriescalculator.viewmodel.MealMakerViewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -25,6 +26,11 @@ val appModule = module {
     }
     factory {
         MealMakerChooseFoodViewModel(
+            foodDAO = get()
+        )
+    }
+    factory {
+        MealMakerViewModel(
             foodDAO = get()
         )
     }

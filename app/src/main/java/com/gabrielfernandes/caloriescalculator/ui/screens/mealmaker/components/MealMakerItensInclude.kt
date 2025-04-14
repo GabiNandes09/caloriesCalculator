@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,20 +28,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
+import com.gabrielfernandes.caloriescalculator.utilities.FoodToInclude
 
 @Composable
-fun MealMakerItensInclude(modifier: Modifier = Modifier) {
+fun MealMakerItensInclude(
+    modifier: Modifier = Modifier,
+    includedItens: List<FoodToInclude>,
+    totalQtd: Double,
+    totalKcal: Double
+) {
     Card(
-        modifier = modifier.shadow(20.dp, RoundedCornerShape(10.dp)),
+        modifier = modifier
+            .shadow(20.dp, RoundedCornerShape(10.dp))
+            .heightIn(max = 400.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         border = BorderStroke(1.dp, Color.Black)
     ) {
-        val itensInMeal = listOf(
-            Food(name = "Banana", caloriesIn100g = 25.0),
-            Food(name = "Banana", caloriesIn100g = 25.0),
-            Food(name = "Banana", caloriesIn100g = 25.0),
-            Food(name = "Banana", caloriesIn100g = 25.0)
-        )
+
         Text(
             text = "ITENS NO SEU PRATO:",
             fontWeight = FontWeight.Bold,
@@ -51,14 +55,23 @@ fun MealMakerItensInclude(modifier: Modifier = Modifier) {
             color = Color.Black
         )
         FirstRow()
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            items(itensInMeal) { food ->
-                ItemInMeal(food)
+        if (includedItens.isEmpty()) {
+            Text(
+                text = "Comece adicionando um item",
+                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                textAlign = TextAlign.Center,
+                color = Color.Gray
+            )
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(includedItens) { food ->
+                    ItemInMeal(food)
+                }
             }
         }
-        TotalRow()
+        TotalRow(totalQtd, totalKcal)
     }
 }
 
@@ -105,7 +118,7 @@ private fun FirstRow() {
 }
 
 @Composable
-private fun ItemInMeal(food: Food) {
+private fun ItemInMeal(food: FoodToInclude) {
     Column {
         Row(
             modifier = Modifier
@@ -115,19 +128,19 @@ private fun ItemInMeal(food: Food) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = food.name,
+                text = food.food.name,
                 modifier = Modifier.width(160.dp),
                 maxLines = 1,
                 color = Color.Black
             )
             Text(
-                text = "50",
+                text = food.qtd.toString(),
                 modifier = Modifier.width(80.dp),
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
             Text(
-                text = "${food.caloriesIn100g}",
+                text = food.kcalInFood.toString(),
                 modifier = Modifier.width(100.dp),
                 textAlign = TextAlign.End,
                 color = Color.Black
@@ -144,7 +157,10 @@ private fun ItemInMeal(food: Food) {
 }
 
 @Composable
-private fun TotalRow() {
+private fun TotalRow(
+    totalQtd: Double,
+    totalKcal: Double
+) {
     Column {
         Spacer(
             modifier = Modifier
@@ -169,24 +185,18 @@ private fun TotalRow() {
                 color = Color.Black
             )
             Text(
-                text = "500",
+                text = totalQtd.toString(),
                 modifier = Modifier.width(80.dp),
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
             Text(
-                text = "1380.00",
+                text = totalKcal.toString(),
                 textAlign = TextAlign.End,
                 modifier = Modifier.width(100.dp),
                 color = Color.Black
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun Preview() {
-    MealMakerItensInclude()
 }
 

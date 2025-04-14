@@ -22,13 +22,15 @@ import com.gabrielfernandes.caloriescalculator.R
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
+import com.gabrielfernandes.caloriescalculator.utilities.FoodToInclude
+import com.gabrielfernandes.caloriescalculator.utilities.convertToDouble
 import com.gabrielfernandes.caloriescalculator.viewmodel.MealMakerChooseFoodViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MealMakerChooseFood(
     modifier: Modifier = Modifier,
-    onAddClick: (Food) -> Unit
+    onAddClick: (FoodToInclude) -> Unit
 ) {
 
     val viewModel: MealMakerChooseFoodViewModel = koinViewModel()
@@ -64,7 +66,16 @@ fun MealMakerChooseFood(
                 viewModel.setQtd(newValue)
             }
             Button(
-                onClick = { selectedItem?.let { onAddClick(it) } },
+                onClick = {
+                    selectedItem?.let { foodToAdd ->
+                        onAddClick(
+                            FoodToInclude(
+                                foodToAdd,
+                                convertToDouble(qtd)
+                            )
+                        )
+                    }
+                },
                 modifier = Modifier
                     .weight(.3f)
                     .padding(10.dp),
