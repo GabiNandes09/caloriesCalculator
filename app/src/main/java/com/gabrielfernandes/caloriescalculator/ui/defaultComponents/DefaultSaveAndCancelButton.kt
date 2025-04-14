@@ -22,7 +22,7 @@ import com.gabrielfernandes.caloriescalculator.R
 
 @Composable
 fun DefaultSaveAndCancelButton(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     isEditing: Boolean,
     onSaveClick: () -> Unit,
     onCancelClick: () -> Unit,

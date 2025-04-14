@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
     )],
     indices = [Index("mealId")]
 )
-data class IncludedFood(
+data class Ingredients(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = 0,
     val mealId: Int,

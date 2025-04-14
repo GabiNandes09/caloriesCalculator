@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2UI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveAndCancelButton
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.components.MealMakerChooseFood
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.components.MealMakerItensInclude
 import com.gabrielfernandes.caloriescalculator.viewmodel.MealMakerViewModel
@@ -54,6 +55,13 @@ fun MealMakerUI(navController: NavController) {
                     includedItens = includedFoodList,
                     totalQtd = totalQtd,
                     totalKcal = totalKcal
+                )
+                DefaultSaveAndCancelButton(
+                    isEditing = false,
+                    onSaveClick = { /*TODO*/ },
+                    onCancelClick = { navController.popBackStack() },
+                    onDeleteClick = {},
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }

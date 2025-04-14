@@ -13,6 +13,5 @@ data class Meal(
     val id: Int? = null,
     val name: String,
     val totalGrams: Double,
-    val totalKcal: Double,
-    val includedItens: List<FoodToInclude>
+    val totalKcal: Double
 )

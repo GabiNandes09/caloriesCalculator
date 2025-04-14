@@ -10,5 +10,5 @@ data class MealWithIngredients(
         parentColumn = "id",
         entityColumn = "mealId"
     )
-    val ingredients: List<IncludedFood>
+    val ingredients: List<Ingredients>
 )

@@ -31,7 +31,8 @@ val appModule = module {
     }
     factory {
         MealMakerViewModel(
-            foodDAO = get()
+            foodDAO = get(),
+            mealDAO = get()
         )
     }
 }
