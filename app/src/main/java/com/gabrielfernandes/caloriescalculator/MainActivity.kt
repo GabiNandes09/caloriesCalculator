@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.gabrielfernandes.caloriescalculator.ui.screens.AddFoodUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.MainPageUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.ManagerPageUI
+import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.MealMakerUI
 import com.gabrielfernandes.caloriescalculator.ui.theme.CaloriesCalculatorTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +25,8 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController = navController, startDestination = "main") {
                     composable("main") {
-                        MainPageUI(navController = navController)
+                        //MainPageUI(navController = navController)
+                        MealMakerUI(navController = navController)
                     }
                     composable(
                         route = "addFood/{id}",
