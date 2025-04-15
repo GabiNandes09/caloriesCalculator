@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import com.gabrielfernandes.caloriescalculator.utilities.FoodToInclude
+import java.util.Locale
 
 @Composable
 fun MealMakerItensInclude(
@@ -58,7 +59,9 @@ fun MealMakerItensInclude(
         if (includedItens.isEmpty()) {
             Text(
                 text = "Comece adicionando um item",
-                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
                 textAlign = TextAlign.Center,
                 color = Color.Gray
             )
@@ -134,13 +137,13 @@ private fun ItemInMeal(food: FoodToInclude) {
                 color = Color.Black
             )
             Text(
-                text = food.qtd.toString(),
+                text = String.format(Locale.ROOT, "%.2f", food.qtd),
                 modifier = Modifier.width(80.dp),
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
             Text(
-                text = food.kcalInFood.toString(),
+                text = String.format(Locale.ROOT, "%.2f", food.kcalInFood),
                 modifier = Modifier.width(100.dp),
                 textAlign = TextAlign.End,
                 color = Color.Black

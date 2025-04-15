@@ -67,13 +67,15 @@ fun MealMakerChooseFood(
             }
             Button(
                 onClick = {
-                    selectedItem?.let { foodToAdd ->
-                        onAddClick(
-                            FoodToInclude(
-                                foodToAdd,
-                                convertToDouble(qtd)
+                    if (qtd.isNotEmpty()){
+                        selectedItem?.let { foodToAdd ->
+                            onAddClick(
+                                FoodToInclude(
+                                    foodToAdd,
+                                    convertToDouble(qtd)
+                                )
                             )
-                        )
+                        }
                     }
                 },
                 modifier = Modifier

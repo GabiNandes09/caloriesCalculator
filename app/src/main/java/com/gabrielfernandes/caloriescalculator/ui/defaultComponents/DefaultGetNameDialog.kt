@@ -54,7 +54,7 @@ fun DefaultGetNameDialog(
                     )
                 }
                 Button(
-                    onClick = { onConfirmButtonClick() },
+                    onClick = { onDismissRequest() },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(
                             id = R.color.red

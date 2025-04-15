@@ -27,6 +27,15 @@ class MealMakerViewModel(
     private val _totalKcal = MutableStateFlow(0.0)
     val totalKcal = _totalKcal.asStateFlow()
 
+    private val _nameMeal = MutableStateFlow("")
+    val nameMeal = _nameMeal.asStateFlow()
+
+    private val _hasError = MutableStateFlow(false)
+    val hasError = _hasError.asStateFlow()
+
+    private val _errorMessage = MutableStateFlow("")
+    val errorMessage = _errorMessage.asStateFlow()
+
     fun addIncludeFood(food: FoodToInclude) {
         food.calculateKcalInFood()
         _includedFood.value += food
@@ -35,18 +44,40 @@ class MealMakerViewModel(
     }
 
     fun onSaveClick() {
-        viewModelScope.launch(Dispatchers.IO) {
-            mealDAO.insertMealWithIngredients(MealWithIngredients(
-                meal = Meal(
-                    name = "Teste2",
-                    totalGrams = _totalQTD.value,
-                    totalKcal = _totalKcal.value
-                ),
-                ingredients = _includedFood.value.map {
-                    it.convertToIngredient()
+        try {
+            if (_nameMeal.value.isNotEmpty()){
+                viewModelScope.launch(Dispatchers.IO) {
+                    mealDAO.insertMealWithIngredients(MealWithIngredients(
+                        meal = Meal(
+                            name = _nameMeal.value,
+                            totalGrams = _totalQTD.value,
+                            totalKcal = _totalKcal.value
+                        ),
+                        ingredients = _includedFood.value.map {
+                            it.convertToIngredient()
+                        }
+                    ))
                 }
-            ))
+            } else {
+                showError("Insira um nome para sua refeição")
+            }
+        } catch (e: Exception){
+            _hasError.value = true
+            e.printStackTrace()
         }
+    }
+
+    fun setName(name: String){
+        _nameMeal.value = name
+    }
+
+    fun resetError(){
+        _hasError.value = false
+    }
+
+    fun showError(message: String){
+        _hasError.value = true
+        _errorMessage.value = message
     }
 
 }

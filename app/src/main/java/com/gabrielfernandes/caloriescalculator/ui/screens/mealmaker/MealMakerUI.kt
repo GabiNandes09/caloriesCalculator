@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2UI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFloatingButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultDialogYesNo
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultGetNameDialog
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveAndCancelButton
@@ -40,8 +42,12 @@ fun MealMakerUI(navController: NavController) {
     val includedFoodList by viewModel.includedFood.collectAsState()
     val totalQtd by viewModel.totalQTD.collectAsState()
     val totalKcal by viewModel.totalKcal.collectAsState()
+    val nameMeal by viewModel.nameMeal.collectAsState()
+    val hasError by viewModel.hasError.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
 
-    val trySave by remember { mutableStateOf(true) }
+    var trySave by remember { mutableStateOf(false) }
+    var listEmpty by remember { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {
@@ -71,7 +77,13 @@ fun MealMakerUI(navController: NavController) {
                     .weight(.9f)
             ) {
                 item {
-                    MealMakerChooseFood { foodToAdd -> viewModel.addIncludeFood(foodToAdd) }
+                    MealMakerChooseFood { foodToAdd ->
+                        try {
+                            viewModel.addIncludeFood(foodToAdd)
+                        } catch (e: Exception){
+                            viewModel.showError(e.message ?: "Erro desconhecido")
+                        }
+                    }
                 }
                 item {
                     MealMakerItensInclude(
@@ -84,7 +96,13 @@ fun MealMakerUI(navController: NavController) {
                 item {
                     DefaultSaveAndCancelButton(
                         isEditing = false,
-                        onSaveClick = { viewModel.onSaveClick() },
+                        onSaveClick = {
+                            if (includedFoodList.isEmpty()) {
+                                listEmpty = true
+                            } else {
+                                trySave = true
+                            }
+                        },
                         onCancelClick = { navController.popBackStack() },
                         onDeleteClick = {},
                         modifier = Modifier.fillMaxWidth()
@@ -94,14 +112,35 @@ fun MealMakerUI(navController: NavController) {
         }
     }
 
-    if (trySave){
+    if (trySave) {
         DefaultGetNameDialog(
             title = "Salvando refeição",
             label = "Insira um nome para refeição",
-            value = "",
-            onConfirmButtonClick = {},
-            onDismissRequest = {},
-            onTextChange = {}
+            value = nameMeal,
+            onConfirmButtonClick = {
+                viewModel.onSaveClick()
+                trySave = false
+            },
+            onDismissRequest = { trySave = false },
+            onTextChange = { newValue -> viewModel.setName(newValue) }
         )
+    }
+
+    if (listEmpty) {
+        DefaultErrorMessage(
+            title = "Algo deu errado",
+            message = "Sua refeição necessita ao menos um ingrediente"
+        ) {
+            listEmpty = false
+        }
+    }
+
+    if (hasError) {
+        DefaultErrorMessage(
+            title = "Algo está errado",
+            message = errorMessage
+        ) {
+            viewModel.resetError()
+        }
     }
 }
