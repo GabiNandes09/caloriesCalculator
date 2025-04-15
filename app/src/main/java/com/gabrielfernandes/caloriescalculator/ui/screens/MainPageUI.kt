@@ -62,7 +62,8 @@ fun MainPageUI(
 
                 DefaultOptionsButton(
                     onManagerClick = { navController.navigate("manager") },
-                    onVersionClick = { version = true }
+                    onVersionClick = { version = true },
+                    onMealMakerClick = { navController.navigate("mealMaker") }
                 )
 
                 if (version) {

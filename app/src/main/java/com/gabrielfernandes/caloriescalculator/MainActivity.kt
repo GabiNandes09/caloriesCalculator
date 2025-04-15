@@ -40,6 +40,9 @@ class MainActivity : ComponentActivity() {
                     composable("manager") {
                         ManagerPageUI(navController)
                     }
+                    composable("mealMaker"){
+                        MealMakerUI(navController = navController)
+                    }
                 }
 
             }

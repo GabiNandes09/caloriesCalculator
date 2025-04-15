@@ -19,7 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun DefaultOptionsButton(
     onManagerClick: () -> Unit,
-    onVersionClick: () -> Unit
+    onVersionClick: () -> Unit,
+    onMealMakerClick: () -> Unit
 ) {
     var expanded by remember {
         mutableStateOf(false)
@@ -40,6 +41,18 @@ fun DefaultOptionsButton(
             onDismissRequest = { expanded = false },
             containerColor = Color.White
         ) {
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = "Refeições",
+                        color = Color.Black
+                    )
+                },
+                onClick = {
+                    expanded = false
+                    onMealMakerClick()
+                }
+            )
             DropdownMenuItem(
                 text = {
                     Text(
