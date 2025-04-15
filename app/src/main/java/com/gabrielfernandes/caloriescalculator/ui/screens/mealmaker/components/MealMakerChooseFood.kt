@@ -49,7 +49,7 @@ fun MealMakerChooseFood(
             itens = foodList,
             onItemClick = { viewModel.setSelectedItem(it as Food) },
             selectedItem = selectedItem,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp)
+            modifier = Modifier.padding(horizontal = 10.dp)
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -61,7 +61,7 @@ fun MealMakerChooseFood(
                 label = "Quantidade (Em gramas)",
                 modifier = Modifier
                     .weight(.5f)
-                    .padding(start = 10.dp, top = 10.dp, bottom = 10.dp)
+                    .padding(start = 10.dp, top = 10.dp)
             ) { newValue ->
                 viewModel.setQtd(newValue)
             }
@@ -75,6 +75,7 @@ fun MealMakerChooseFood(
                                     convertToDouble(qtd)
                                 )
                             )
+                            viewModel.clean()
                         }
                     }
                 },

@@ -22,11 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gabrielfernandes.caloriescalculator.R
 import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import com.gabrielfernandes.caloriescalculator.utilities.FoodToInclude
 import java.util.Locale
@@ -41,18 +43,17 @@ fun MealMakerItensInclude(
     Card(
         modifier = modifier
             .shadow(20.dp, RoundedCornerShape(10.dp))
-            .heightIn(max = 400.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+            .height(300.dp),
+        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.paper)),
         border = BorderStroke(1.dp, Color.Black)
     ) {
-
         Text(
             text = "ITENS NO SEU PRATO:",
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
-            fontSize = 20.sp,
+                .padding(start = 20.dp, top = 10.dp),
+            fontSize = 16.sp,
             color = Color.Black
         )
         FirstRow()
@@ -60,14 +61,18 @@ fun MealMakerItensInclude(
             Text(
                 text = "Comece adicionando um item",
                 modifier = Modifier
+                    .padding(horizontal = 20.dp)
                     .fillMaxWidth()
-                    .padding(20.dp),
+                    .height(180.dp),
                 textAlign = TextAlign.Center,
-                color = Color.Gray
+                color = Color.Gray,
+                maxLines = 1
             )
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
             ) {
                 items(includedItens) { food ->
                     ItemInMeal(food)
@@ -93,21 +98,24 @@ private fun FirstRow() {
                 modifier = Modifier.width(160.dp),
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 14.sp
             )
             Text(
                 text = "QTD",
                 modifier = Modifier.width(80.dp),
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 14.sp
             )
             Text(
                 text = "KCAL",
                 modifier = Modifier.width(100.dp),
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.End,
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 14.sp
             )
         }
         Spacer(
@@ -126,7 +134,7 @@ private fun ItemInMeal(food: FoodToInclude) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 5.dp),
+                .padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -134,19 +142,22 @@ private fun ItemInMeal(food: FoodToInclude) {
                 text = food.food.name,
                 modifier = Modifier.width(160.dp),
                 maxLines = 1,
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 12.sp
             )
             Text(
                 text = String.format(Locale.ROOT, "%.2f", food.qtd),
                 modifier = Modifier.width(80.dp),
                 textAlign = TextAlign.Center,
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 12.sp
             )
             Text(
                 text = String.format(Locale.ROOT, "%.2f", food.kcalInFood),
                 modifier = Modifier.width(100.dp),
                 textAlign = TextAlign.End,
-                color = Color.Black
+                color = Color.Black,
+                fontSize = 12.sp
             )
         }
         Spacer(
@@ -175,7 +186,7 @@ private fun TotalRow(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 15.dp),
+                .padding(horizontal = 20.dp, vertical = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -183,7 +194,7 @@ private fun TotalRow(
                 text = "TOTAL",
                 modifier = Modifier.width(160.dp),
                 fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 maxLines = 1,
                 color = Color.Black
             )

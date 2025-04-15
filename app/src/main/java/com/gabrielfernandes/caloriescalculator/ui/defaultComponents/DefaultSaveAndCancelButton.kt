@@ -22,6 +22,8 @@ import com.gabrielfernandes.caloriescalculator.R
 
 @Composable
 fun DefaultSaveAndCancelButton(
+    saveText: String = "SALVAR",
+    cancelText: String = "CANCELAR",
     modifier: Modifier = Modifier,
     isEditing: Boolean,
     onSaveClick: () -> Unit,
@@ -40,7 +42,7 @@ fun DefaultSaveAndCancelButton(
             )
         ) {
             Text(
-                text = if (isEditing) "Atualizar" else "Salvar",
+                text = if (isEditing) "Atualizar" else saveText,
                 color = Color.Black,
                 fontSize = 25.sp
             )
@@ -52,7 +54,7 @@ fun DefaultSaveAndCancelButton(
             )
         ) {
             Text(
-                text = "Cancelar",
+                text = cancelText,
                 color = Color.White,
                 fontSize = 25.sp
             )

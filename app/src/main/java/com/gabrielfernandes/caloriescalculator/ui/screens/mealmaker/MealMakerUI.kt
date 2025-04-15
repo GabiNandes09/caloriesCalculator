@@ -59,44 +59,36 @@ fun MealMakerUI(navController: NavController) {
                 .weight(.15f)
                 .fillMaxWidth()
         )
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(800.dp)
-                .weight(.9f)
+        Column(
+            modifier = Modifier.fillMaxWidth().weight(.95f)
         ) {
-            item {
-                MealMakerChooseFood { foodToAdd ->
-                    try {
-                        viewModel.addIncludeFood(foodToAdd)
-                    } catch (e: Exception){
-                        viewModel.showError(e.message ?: "Erro desconhecido")
-                    }
+            MealMakerChooseFood { foodToAdd ->
+                try {
+                    viewModel.addIncludeFood(foodToAdd)
+                } catch (e: Exception){
+                    viewModel.showError(e.message ?: "Erro desconhecido")
                 }
             }
-            item {
-                MealMakerItensInclude(
-                    modifier = Modifier.padding(20.dp),
-                    includedItens = includedFoodList,
-                    totalQtd = totalQtd,
-                    totalKcal = totalKcal
-                )
-            }
-            item {
-                DefaultSaveAndCancelButton(
-                    isEditing = false,
-                    onSaveClick = {
-                        if (includedFoodList.isEmpty()) {
-                            listEmpty = true
-                        } else {
-                            trySave = true
-                        }
-                    },
-                    onCancelClick = { navController.popBackStack() },
-                    onDeleteClick = {},
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            MealMakerItensInclude(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+                includedItens = includedFoodList,
+                totalQtd = totalQtd,
+                totalKcal = totalKcal
+            )
+            DefaultSaveAndCancelButton(
+                cancelText = "LIMPAR",
+                isEditing = false,
+                onSaveClick = {
+                    if (includedFoodList.isEmpty()) {
+                        listEmpty = true
+                    } else {
+                        trySave = true
+                    }
+                },
+                onCancelClick = { viewModel.onCleanClick() },
+                onDeleteClick = {},
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 

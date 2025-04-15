@@ -3,6 +3,8 @@ package com.gabrielfernandes.caloriescalculator.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,7 +30,6 @@ import java.util.Locale
 
 @Composable
 fun CalculatorUI(
-    modifier: Modifier = Modifier,
     navController: NavController
 ) {
 
@@ -45,7 +46,7 @@ fun CalculatorUI(
         viewModel.kcalCalculator(requiredValue)
     }
 
-    Column(modifier = modifier) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -120,10 +121,11 @@ fun CalculatorUI(
                 }
 
             }
+            Spacer(modifier = Modifier.weight(1f))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 DefaultCleanButton(

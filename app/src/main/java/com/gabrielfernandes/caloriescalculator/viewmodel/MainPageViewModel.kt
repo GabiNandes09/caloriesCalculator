@@ -6,14 +6,15 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
+import com.gabrielfernandes.caloriescalculator.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class MainPageViewModel() : ViewModel() {
     val itens = listOf(
-        BottomItem(label = "Calculadora", icon = Icons.Default.Person),
-        BottomItem(label = "Refeições", icon = Icons.AutoMirrored.Filled.List),
-        BottomItem(label = "Gerenciamento", icon = Icons.Default.Search),
+        BottomItem(label = "Calculadora", icon = R.drawable.calculator_ico),
+        BottomItem(label = "Refeições", icon = R.drawable.meal_maker_ico),
+        BottomItem(label = "Gerenciamento", icon = R.drawable.edit_ico),
     )
 
     private val _selectedItem = MutableStateFlow(0)
@@ -27,5 +28,5 @@ class MainPageViewModel() : ViewModel() {
 
 data class BottomItem(
     val label: String,
-    val icon: ImageVector
+    val icon: Int
 )

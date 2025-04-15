@@ -80,5 +80,9 @@ class MealMakerViewModel(
         _errorMessage.value = message
     }
 
+    fun onCleanClick(){
+        _includedFood.value = emptyList()
+    }
+
 }
 
