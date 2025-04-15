@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 )
 data class Ingredients(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    val id: Int? = null,
     val mealId: Int,
     val name: String,
     val caloriesIn100g: Double,
