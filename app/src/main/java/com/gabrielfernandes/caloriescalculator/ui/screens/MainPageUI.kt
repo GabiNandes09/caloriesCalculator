@@ -14,6 +14,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,12 +34,23 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultBotto
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOptionsButton
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.MealMakerUI
+import com.gabrielfernandes.caloriescalculator.viewmodel.MainPageViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainPageUI(
     navController: NavController
 ) {
-    val pagerState = rememberPagerState { 3 }
+    val viewModel: MainPageViewModel = koinViewModel()
+    val pagerState = rememberPagerState { viewModel.itens.size }
+    val selectedItem by viewModel.selectedItem.collectAsState()
+
+    LaunchedEffect(key1 = selectedItem) {
+        pagerState.animateScrollToPage(selectedItem)
+    }
+    LaunchedEffect(key1 = pagerState.targetPage) {
+        viewModel.chanceSelectedTo(pagerState.targetPage)
+    }
 
     Scaffold(
         floatingActionButton = {
@@ -75,7 +88,7 @@ fun MainPageUI(
                 }
             }
         },
-        bottomBar = { DefaultBottomBar(selectedItem = 1) }
+        bottomBar = { DefaultBottomBar(selectedItem = selectedItem) }
     ) { paddingValues ->
         BackgroundUI()
         Column(

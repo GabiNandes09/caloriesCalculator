@@ -3,7 +3,6 @@ package com.gabrielfernandes.caloriescalculator.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,7 +22,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultClean
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
-import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
+import com.gabrielfernandes.caloriescalculator.viewmodel.CalculatorViewModel
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
 
@@ -33,7 +32,7 @@ fun CalculatorUI(
     navController: NavController
 ) {
 
-    val viewModel: MainViewModel = koinViewModel()
+    val viewModel: CalculatorViewModel = koinViewModel()
 
     val foodList by viewModel.foodList.collectAsState()
     val firstItem by viewModel.firstItem.collectAsState()

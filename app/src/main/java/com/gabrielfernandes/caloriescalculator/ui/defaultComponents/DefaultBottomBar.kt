@@ -9,15 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.gabrielfernandes.caloriescalculator.viewmodel.MainPageViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DefaultBottomBar(
     selectedItem: Int
 ) {
+    val viewModel: MainPageViewModel = koinViewModel()
 
-    val items = listOf(
-        BottomItem(label = "Home", icon = Icons.Default.Home)
-    )
+    val items = viewModel.itens
 
     BottomAppBar(
         containerColor = Color.Transparent,
@@ -25,7 +26,7 @@ fun DefaultBottomBar(
             items.forEach { item ->
                 NavigationBarItem(
                     selected = selectedItem == items.indexOf(item),
-                    onClick = { },
+                    onClick = { viewModel.chanceSelectedTo(items.indexOf(item)) },
                     icon = {
                         Icon(
                             imageVector = item.icon,
@@ -39,7 +40,3 @@ fun DefaultBottomBar(
         })
 }
 
-data class BottomItem(
-    val label: String,
-    val icon: ImageVector
-)
