@@ -77,19 +77,6 @@ fun MainPageUI(
         }
     ) { paddingValues ->
         BackgroundUI()
-        val viewModel: MainViewModel = koinViewModel()
-
-        val foodList by viewModel.foodList.collectAsState()
-        val firstItem by viewModel.firstItem.collectAsState()
-        val secondItem by viewModel.secondItem.collectAsState()
-        val kcalFi by viewModel.kcalFi.collectAsState()
-        val gramSi by viewModel.gramSi.collectAsState()
-        val requiredValue by viewModel.requiredValue.collectAsState()
-
-        LaunchedEffect(firstItem, secondItem, requiredValue) {
-            viewModel.kcalCalculator(requiredValue)
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -100,7 +87,7 @@ fun MainPageUI(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .weight(.2f),
+                    .weight(.1f),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -111,149 +98,8 @@ fun MainPageUI(
                         .clip(RoundedCornerShape(30.dp))
                         .size(80.dp)
                 )
-                DefaultHeader(
-                    title = "Calculadora de calorias",
-                    modifier = Modifier.padding(top = 10.dp)
-                )
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 20.dp)
-                    .weight(.8f),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                FirstItem(
-                    itens = foodList,
-                    onItemClick = { first -> viewModel.setFirstItem(first) },
-                    itemSelected = firstItem,
-                    onAddClick = { navController.navigate("addFood/0") }
-                )
-                SecondItem(
-                    itens = foodList,
-                    onItemClick = { second -> viewModel.setSecondItem(second) },
-                    itemSelected = secondItem,
-                    onAddClick = { navController.navigate("addFood/0") }
-                )
-                DefaultTextField(
-                    modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-                    label = "Gramas desejadas",
-                    value = requiredValue,
-                    isNumeric = true
-                ) { newValue ->
-                    viewModel.setRequiredValue(newValue)
-                }
-
-                if (requiredValue.isNotEmpty()) {
-                    firstItem?.let { firstItem ->
-                        Text(
-                            text = "$requiredValue gramas de ${firstItem.name} tem ${
-                                String.format(
-                                    Locale.ROOT,
-                                    "%.2f",
-                                    kcalFi
-                                )
-                            } calorias.",
-                            color = Color.Black,
-                            modifier = Modifier.padding(horizontal = 30.dp)
-                        )
-                    }
-                    secondItem?.let { secondItem ->
-                        Text(
-                            text = "Para ${secondItem.name} ter ${
-                                String.format(
-                                    Locale.ROOT,
-                                    "%.2f",
-                                    kcalFi
-                                )
-                            } calorias são necessários ${
-                                String.format(
-                                    Locale.ROOT, "%.2f", gramSi
-                                )
-                            } gramas.",
-                            color = Color.Black,
-                            modifier = Modifier.padding(horizontal = 30.dp)
-                        )
-                    }
-
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    DefaultCleanButton(
-                        modifier = Modifier.padding(top = 15.dp)
-                    ) {
-                        viewModel.onCleanButtonClick()
-                    }
-                    DefaultChangePositionButton(
-                        modifier = Modifier
-                            .padding(15.dp)
-                            .size(55.dp),
-                        onChangeButtonClick = { viewModel.onChangeButtonClick() }
-                    )
-                }
-            }
+            CalculatorUI(navController = navController, modifier = Modifier.weight(.9f))
         }
     }
-}
-
-@Composable
-private fun FirstItem(
-    itens: List<Food>,
-    onItemClick: (Food) -> Unit,
-    itemSelected: Food?,
-    onAddClick: () -> Unit
-) {
-    DefaultComboBox(
-        itens = itens,
-        label = "Selecione um item",
-        modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        canAdd = true,
-        selectedItem = itemSelected,
-        onItemClick = { onItemClick(it as Food) },
-        onAddClick = { onAddClick() }
-    )
-    if (itemSelected != null) {
-        Text(
-            text = "O Item ${itemSelected.name} \ntem ${itemSelected.caloriesIn100g} calorias em 100 gramas",
-            color = Color.Black
-        )
-    }
-}
-
-@Composable
-private fun SecondItem(
-    itens: List<Food>,
-    onItemClick: (Food) -> Unit,
-    itemSelected: Food?,
-    onAddClick: () -> Unit
-) {
-    DefaultComboBox(
-        itens = itens,
-        label = "Selecione um item",
-        modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-        canAdd = true,
-        selectedItem = itemSelected,
-        onAddClick = { onAddClick() },
-        onItemClick = { onItemClick(it as Food) }
-    )
-
-    if (itemSelected != null) {
-        Text(
-            text = "O Item ${itemSelected.name} \ntem ${itemSelected.caloriesIn100g} calorias em 100 gramas",
-            color = Color.Black
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun Preview() {
-    val nav = rememberNavController()
-    MainPageUI(nav)
 }
