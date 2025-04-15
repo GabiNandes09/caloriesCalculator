@@ -82,7 +82,7 @@ fun CalculatorUI(
             )
             DefaultTextField(
                 modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-                label = "Gramas desejadas",
+                label = "Gramas desejados",
                 value = requiredValue,
                 isNumeric = true
             ) { newValue ->

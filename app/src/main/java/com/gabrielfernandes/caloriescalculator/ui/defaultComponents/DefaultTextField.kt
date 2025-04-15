@@ -32,6 +32,7 @@ fun DefaultTextField(
             onValueChange = { newValue ->
                 onValueChange(newValue)
             },
+            maxLines = 1,
             modifier = Modifier.fillMaxWidth().border(2.dp, Color.Black),
             label = {
                 Text(text = label)
