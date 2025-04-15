@@ -26,13 +26,13 @@ fun DefaultTextField(
     value: String,
     onValueChange: (String) -> Unit
 ) {
-
     Column(modifier = modifier) {
         TextField(
             value = value,
             onValueChange = { newValue ->
                 onValueChange(newValue)
             },
+            maxLines = 1,
             modifier = Modifier.fillMaxWidth().border(2.dp, Color.Black),
             label = {
                 Text(text = label)

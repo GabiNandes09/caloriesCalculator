@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.gabrielfernandes.caloriescalculator.ui.screens.AddFoodUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.MainPageUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.ManagerPageUI
+import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.MealMakerUI
 import com.gabrielfernandes.caloriescalculator.ui.theme.CaloriesCalculatorTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,6 +39,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("manager") {
                         ManagerPageUI(navController)
+                    }
+                    composable("mealMaker"){
+                        MealMakerUI(navController = navController)
                     }
                 }
 

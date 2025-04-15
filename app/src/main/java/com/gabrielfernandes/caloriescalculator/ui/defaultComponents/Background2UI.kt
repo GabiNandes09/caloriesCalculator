@@ -20,19 +20,22 @@ import androidx.compose.ui.unit.dp
 import com.gabrielfernandes.caloriescalculator.R
 
 @Composable
-fun Background2UI() {
+fun Background2UI(
+    color1Weight: Float = .3f,
+    color2Weight: Float = .9f
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(.3f)
+                    .weight(color1Weight)
                     .background(colorResource(id = R.color.c1))
             )
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(.9f)
+                    .weight(color2Weight)
                     .background(Color.White)
             )
         }
