@@ -73,9 +73,7 @@ fun MainPageUI(
                 val versionName = packageInfo.versionName
 
                 DefaultOptionsButton(
-                    onManagerClick = { navController.navigate("manager") },
-                    onVersionClick = { version = true },
-                    onMealMakerClick = { navController.navigate("mealMaker") }
+                    onVersionClick = { version = true }
                 )
 
                 if (version) {
