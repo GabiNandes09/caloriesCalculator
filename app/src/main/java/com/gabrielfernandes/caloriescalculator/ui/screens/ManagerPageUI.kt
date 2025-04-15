@@ -39,68 +39,38 @@ fun ManagerPageUI(navController: NavController) {
     val foodList by viewModel.foodList.collectAsState()
     val filter by viewModel.filter.collectAsState()
 
-    Scaffold(
-        topBar = {
+    Column {
+        DefaultHeader(
+            title = "Gerenciador", modifier = Modifier
+                .fillMaxWidth()
+                .weight(.1f)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(.9f)
+        ) {
             Row(
                 modifier = Modifier
-                    .padding(top = 30.dp)
-                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 10.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
-                IconButton(
-                    onClick = { navController.popBackStack() },
-                    modifier = Modifier
-                        .padding(start = 20.dp, top = 10.dp)
-                        .size(30.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null,
-                        tint = Color.Black,
-                        modifier = Modifier.size(30.dp)
-                    )
-                }
-            }
-        },
-        floatingActionButton = { DefaultAddFloatingButton { navController.navigate("addFood/0") } },
-        floatingActionButtonPosition = FabPosition.End
-    ) { paddingValues ->
-        Background2UI()
-        Column(
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            DefaultHeader(
-                title = "Gerenciador", modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(.2f),
-                subTitle = "Clique para editar"
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(.8f)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp, vertical = 10.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    DefaultSearchBar(
-                        value = filter,
-                        onValueChange = { newValue ->
-                            viewModel.setFilter(newValue)
-                        }
-                    )
-                    DefaultOrderByButton { orderBy ->
-                        viewModel.setOrderBy(orderBy)
+                DefaultSearchBar(
+                    value = filter,
+                    onValueChange = { newValue ->
+                        viewModel.setFilter(newValue)
                     }
-                }
-                DefaultTableWithRows(
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    rows = foodList,
-                    onRowClick = { navController.navigate("addFood/${it}") }
                 )
+                DefaultOrderByButton { orderBy ->
+                    viewModel.setOrderBy(orderBy)
+                }
             }
+            DefaultTableWithRows(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                rows = foodList,
+                onRowClick = { navController.navigate("addFood/${it}") }
+            )
         }
     }
 }

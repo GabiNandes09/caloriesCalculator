@@ -49,65 +49,53 @@ fun MealMakerUI(navController: NavController) {
     var trySave by remember { mutableStateOf(false) }
     var listEmpty by remember { mutableStateOf(false) }
 
-    Scaffold(
-        floatingActionButton = {
-            DefaultAddFloatingButton {
-                navController.navigate("addFood/0")
-            }
-        }
-    ) { paddingValues ->
-        Background2UI(
-            color1Weight = .15f
-        )
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        DefaultHeader(
+            title = "Monte sua refeição",
             modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize()
+                .weight(.15f)
+                .fillMaxWidth()
+        )
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(800.dp)
+                .weight(.9f)
         ) {
-            DefaultHeader(
-                title = "Monte sua refeição",
-                modifier = Modifier
-                    .weight(.15f)
-                    .fillMaxWidth()
-            )
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(800.dp)
-                    .weight(.9f)
-            ) {
-                item {
-                    MealMakerChooseFood { foodToAdd ->
-                        try {
-                            viewModel.addIncludeFood(foodToAdd)
-                        } catch (e: Exception){
-                            viewModel.showError(e.message ?: "Erro desconhecido")
-                        }
+            item {
+                MealMakerChooseFood { foodToAdd ->
+                    try {
+                        viewModel.addIncludeFood(foodToAdd)
+                    } catch (e: Exception){
+                        viewModel.showError(e.message ?: "Erro desconhecido")
                     }
                 }
-                item {
-                    MealMakerItensInclude(
-                        modifier = Modifier.padding(20.dp),
-                        includedItens = includedFoodList,
-                        totalQtd = totalQtd,
-                        totalKcal = totalKcal
-                    )
-                }
-                item {
-                    DefaultSaveAndCancelButton(
-                        isEditing = false,
-                        onSaveClick = {
-                            if (includedFoodList.isEmpty()) {
-                                listEmpty = true
-                            } else {
-                                trySave = true
-                            }
-                        },
-                        onCancelClick = { navController.popBackStack() },
-                        onDeleteClick = {},
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+            }
+            item {
+                MealMakerItensInclude(
+                    modifier = Modifier.padding(20.dp),
+                    includedItens = includedFoodList,
+                    totalQtd = totalQtd,
+                    totalKcal = totalKcal
+                )
+            }
+            item {
+                DefaultSaveAndCancelButton(
+                    isEditing = false,
+                    onSaveClick = {
+                        if (includedFoodList.isEmpty()) {
+                            listEmpty = true
+                        } else {
+                            trySave = true
+                        }
+                    },
+                    onCancelClick = { navController.popBackStack() },
+                    onDeleteClick = {},
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }

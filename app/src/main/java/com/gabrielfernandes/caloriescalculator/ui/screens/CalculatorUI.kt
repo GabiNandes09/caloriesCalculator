@@ -54,7 +54,6 @@ fun CalculatorUI(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             DefaultHeader(
                 title = "Calculadora de calorias",
                 modifier = Modifier.padding(top = 10.dp)
