@@ -27,15 +27,6 @@ class MealMakerViewModel(
     private val _totalKcal = MutableStateFlow(0.0)
     val totalKcal = _totalKcal.asStateFlow()
 
-    private val _mealList = MutableStateFlow<List<MealWithIngredients>>(emptyList())
-    val mealList = _mealList.asStateFlow()
-
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            loadMeal()
-        }
-    }
-
     fun addIncludeFood(food: FoodToInclude) {
         food.calculateKcalInFood()
         _includedFood.value += food
@@ -55,12 +46,6 @@ class MealMakerViewModel(
                     it.convertToIngredient()
                 }
             ))
-        }
-    }
-
-    private suspend fun loadMeal(){
-        mealDAO.selectAll().collect{list ->
-            _mealList.value = list
         }
     }
 

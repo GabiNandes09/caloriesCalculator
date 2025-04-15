@@ -26,7 +26,6 @@ fun DefaultTextField(
     value: String,
     onValueChange: (String) -> Unit
 ) {
-
     Column(modifier = modifier) {
         TextField(
             value = value,

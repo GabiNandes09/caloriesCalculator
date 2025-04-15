@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +24,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.Background2UI
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFloatingButton
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultDialogYesNo
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultGetNameDialog
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSaveAndCancelButton
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.components.MealMakerChooseFood
@@ -36,7 +40,8 @@ fun MealMakerUI(navController: NavController) {
     val includedFoodList by viewModel.includedFood.collectAsState()
     val totalQtd by viewModel.totalQTD.collectAsState()
     val totalKcal by viewModel.totalKcal.collectAsState()
-    val mealList by viewModel.mealList.collectAsState()
+
+    val trySave by remember { mutableStateOf(true) }
 
     Scaffold(
         floatingActionButton = {
@@ -88,12 +93,15 @@ fun MealMakerUI(navController: NavController) {
             }
         }
     }
-}
 
-@Preview
-@Composable
-private fun Preview() {
-    val navController = rememberNavController()
-
-    MealMakerUI(navController)
+    if (trySave){
+        DefaultGetNameDialog(
+            title = "Salvando refeição",
+            label = "Insira um nome para refeição",
+            value = "",
+            onConfirmButtonClick = {},
+            onDismissRequest = {},
+            onTextChange = {}
+        )
+    }
 }
