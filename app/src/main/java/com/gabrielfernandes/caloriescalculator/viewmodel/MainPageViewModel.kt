@@ -14,7 +14,8 @@ class MainPageViewModel() : ViewModel() {
     val itens = listOf(
         BottomItem(label = "Calculadora", icon = R.drawable.calculator_ico),
         BottomItem(label = "Refeições", icon = R.drawable.meal_maker_ico),
-        BottomItem(label = "Gerenciamento", icon = R.drawable.edit_ico),
+        BottomItem(label = "Livro de receitas", icon = R.drawable.menu_book_ico),
+        BottomItem(label = "Itens", icon = R.drawable.edit_ico),
     )
 
     private val _selectedItem = MutableStateFlow(0)
