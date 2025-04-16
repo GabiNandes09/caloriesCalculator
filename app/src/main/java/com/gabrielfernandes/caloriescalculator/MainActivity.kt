@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                         ManagerPageUI(navController)
                     }
                     composable("mealMaker"){
-                        MealMakerUI(navController = navController)
+                        MealMakerUI()
                     }
                 }
 

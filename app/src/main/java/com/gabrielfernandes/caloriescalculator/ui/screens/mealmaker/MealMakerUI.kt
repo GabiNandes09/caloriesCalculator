@@ -36,7 +36,7 @@ import com.gabrielfernandes.caloriescalculator.viewmodel.MealMakerViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MealMakerUI(navController: NavController) {
+fun MealMakerUI() {
     val viewModel: MealMakerViewModel = koinViewModel()
 
     val includedFoodList by viewModel.includedFood.collectAsState()

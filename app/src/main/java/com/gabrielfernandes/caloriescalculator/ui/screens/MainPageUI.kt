@@ -33,6 +33,7 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFl
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultBottomBar
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOptionsButton
+import com.gabrielfernandes.caloriescalculator.ui.screens.mealbook.MealBookUI
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.MealMakerUI
 import com.gabrielfernandes.caloriescalculator.viewmodel.MainPageViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -118,8 +119,9 @@ fun MainPageUI(
             ) { page ->
                 when (page) {
                     0 -> CalculatorUI(navController = navController)
-                    1 -> MealMakerUI(navController = navController)
-                    2 -> ManagerPageUI(navController = navController)
+                    1 -> MealMakerUI()
+                    2 -> MealBookUI()
+                    3 -> ManagerPageUI(navController = navController)
                 }
             }
         }

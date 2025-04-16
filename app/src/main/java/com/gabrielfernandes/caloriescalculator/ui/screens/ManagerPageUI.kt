@@ -41,7 +41,8 @@ fun ManagerPageUI(navController: NavController) {
 
     Column {
         DefaultHeader(
-            title = "Gerenciador", modifier = Modifier
+            title = "Gerenciador",
+            modifier = Modifier
                 .fillMaxWidth()
                 .weight(.1f)
         )
