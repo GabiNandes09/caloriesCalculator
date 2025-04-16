@@ -53,9 +53,9 @@ fun ManagerPageUI(navController: NavController) {
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp, vertical = 10.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 DefaultSearchBar(
                     value = filter,

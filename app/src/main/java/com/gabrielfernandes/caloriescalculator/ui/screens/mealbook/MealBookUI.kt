@@ -24,6 +24,7 @@ fun MealBookUI() {
     val viewModel: MealBookViewModel = koinViewModel()
 
     val mealList by viewModel.mealList.collectAsState()
+    val filter by viewModel.filter.collectAsState()
 
 
     Column(
@@ -39,18 +40,19 @@ fun MealBookUI() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
-                .weight(.9f)
+                .weight(.75f)
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                DefaultSearchBar(value = "") {
-
+                DefaultSearchBar(value = filter) { newValue ->
+                    viewModel.setFilter(newValue)
                 }
-                DefaultOrderByButton {
-
+                DefaultOrderByButton { orderBy ->
+                    viewModel.setOrderBy(orderBy)
                 }
             }
             TableMealBook(mealList = mealList)
