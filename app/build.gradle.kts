@@ -102,4 +102,6 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation(libs.androidx.room.paging)
+
+    implementation("androidx.core:core-splashscreen:1.0.0")
 }
