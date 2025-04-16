@@ -120,7 +120,7 @@ fun MainPageUI(
                 when (page) {
                     0 -> CalculatorUI(navController = navController)
                     1 -> MealMakerUI()
-                    2 -> MealBookUI()
+                    2 -> MealBookUI { viewModel.chanceSelectedTo(1) }
                     3 -> ManagerPageUI(navController = navController)
                 }
             }
