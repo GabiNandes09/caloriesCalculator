@@ -36,81 +36,13 @@ import com.gabrielfernandes.caloriescalculator.database.entity.Meal
 import com.gabrielfernandes.caloriescalculator.database.entity.MealWithIngredients
 
 @Composable
-fun TableMealBook(modifier: Modifier = Modifier) {
-    val list = listOf(
-        MealWithIngredients(
-            meal = Meal(
-                id = 1,
-                name = "Prato padrão",
-                totalGrams = 450.0,
-                totalKcal = 1327.0
-            ),
-            ingredients = listOf(
-                Ingredients(
-                    id = 1,
-                    mealId = 1,
-                    name = "Arroz",
-                    caloriesIn100g = 160.0,
-                    qtd = 150.0,
-                    totalKcal = 240.0
-                ),
-                Ingredients(
-                    id = 1,
-                    mealId = 1,
-                    name = "Arroz",
-                    caloriesIn100g = 160.0,
-                    qtd = 150.0,
-                    totalKcal = 240.0
-                ),
-                Ingredients(
-                    id = 1,
-                    mealId = 1,
-                    name = "Arroz",
-                    caloriesIn100g = 160.0,
-                    qtd = 150.0,
-                    totalKcal = 240.0
-                )
-            )
-        ),
-        MealWithIngredients(
-            meal = Meal(
-                id = 1,
-                name = "Prato padrão",
-                totalGrams = 450.0,
-                totalKcal = 1327.0
-            ),
-            ingredients = listOf(
-                Ingredients(
-                    id = 1,
-                    mealId = 1,
-                    name = "Arroz",
-                    caloriesIn100g = 160.0,
-                    qtd = 150.0,
-                    totalKcal = 240.0
-                )
-            )
-        ),
-        MealWithIngredients(
-            meal = Meal(
-                id = 1,
-                name = "Prato padrão",
-                totalGrams = 450.0,
-                totalKcal = 1327.0
-            ),
-            ingredients = listOf(
-                Ingredients(
-                    id = 1,
-                    mealId = 1,
-                    name = "Arroz",
-                    caloriesIn100g = 160.0,
-                    qtd = 150.0,
-                    totalKcal = 240.0
-                )
-            )
-        )
-    )
+fun TableMealBook(
+    modifier: Modifier = Modifier,
+    mealList: List<MealWithIngredients>
+) {
+
     LazyColumn(modifier) {
-        items(list) { mealWithIngredients ->
+        items(mealList) { mealWithIngredients ->
             ItemMealBook(mealWithIngredients = mealWithIngredients)
         }
     }

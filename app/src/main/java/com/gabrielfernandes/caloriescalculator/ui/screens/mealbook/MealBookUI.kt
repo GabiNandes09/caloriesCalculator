@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,9 +16,16 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeade
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOrderByButton
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultSearchBar
 import com.gabrielfernandes.caloriescalculator.ui.screens.mealbook.components.TableMealBook
+import com.gabrielfernandes.caloriescalculator.viewmodel.MealBookViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MealBookUI() {
+    val viewModel: MealBookViewModel = koinViewModel()
+
+    val mealList by viewModel.mealList.collectAsState()
+
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -44,7 +53,7 @@ fun MealBookUI() {
 
                 }
             }
-            TableMealBook()
+            TableMealBook(mealList = mealList)
         }
     }
 }
