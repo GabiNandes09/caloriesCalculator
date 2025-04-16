@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,32 +23,42 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.gabrielfernandes.caloriescalculator.R
-import com.gabrielfernandes.caloriescalculator.database.entity.Food
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.BackgroundUI
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultChangePositionButton
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultCleanButton
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultAddFloatingButton
+import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultBottomBar
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultErrorMessage
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultOptionsButton
-import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
-import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
+import com.gabrielfernandes.caloriescalculator.ui.screens.mealmaker.MealMakerUI
+import com.gabrielfernandes.caloriescalculator.viewmodel.MainPageViewModel
 import org.koin.androidx.compose.koinViewModel
-import java.util.Locale
 
 @Composable
 fun MainPageUI(
     navController: NavController
 ) {
+    val viewModel: MainPageViewModel = koinViewModel()
+    val pagerState = rememberPagerState { viewModel.itens.size }
+    val selectedItem by viewModel.selectedItem.collectAsState()
+
+    LaunchedEffect(key1 = selectedItem) {
+        pagerState.animateScrollToPage(selectedItem)
+    }
+    LaunchedEffect(key1 = pagerState.targetPage) {
+        viewModel.chanceSelectedTo(pagerState.targetPage)
+    }
+
     Scaffold(
+        floatingActionButton = {
+            DefaultAddFloatingButton {
+                navController.navigate("addFood/0")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
         topBar = {
             Row(
                 modifier = Modifier
@@ -61,9 +73,7 @@ fun MainPageUI(
                 val versionName = packageInfo.versionName
 
                 DefaultOptionsButton(
-                    onManagerClick = { navController.navigate("manager") },
-                    onVersionClick = { version = true },
-                    onMealMakerClick = { navController.navigate("mealMaker") }
+                    onVersionClick = { version = true }
                 )
 
                 if (version) {
@@ -75,7 +85,8 @@ fun MainPageUI(
                     }
                 }
             }
-        }
+        },
+        bottomBar = { DefaultBottomBar(selectedItem = selectedItem) }
     ) { paddingValues ->
         BackgroundUI()
         Column(
@@ -100,7 +111,17 @@ fun MainPageUI(
                         .size(80.dp)
                 )
             }
-            CalculatorUI(navController = navController, modifier = Modifier.weight(.9f))
+            HorizontalPager(
+                state = pagerState, modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(.7f)
+            ) { page ->
+                when (page) {
+                    0 -> CalculatorUI(navController = navController)
+                    1 -> MealMakerUI(navController = navController)
+                    2 -> ManagerPageUI(navController = navController)
+                }
+            }
         }
     }
 }

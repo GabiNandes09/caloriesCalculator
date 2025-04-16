@@ -42,4 +42,9 @@ class MealMakerChooseFoodViewModel(
     fun setSelectedItem(food: Food){
         _selectedItem.value = food
     }
+
+    fun clean(){
+        _selectedItem.value = null
+        _qtd.value = ""
+    }
 }

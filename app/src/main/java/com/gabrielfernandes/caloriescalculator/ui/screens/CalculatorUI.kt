@@ -3,6 +3,7 @@ package com.gabrielfernandes.caloriescalculator.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,17 +24,16 @@ import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultClean
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultComboBox
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultHeader
 import com.gabrielfernandes.caloriescalculator.ui.defaultComponents.DefaultTextField
-import com.gabrielfernandes.caloriescalculator.viewmodel.MainViewModel
+import com.gabrielfernandes.caloriescalculator.viewmodel.CalculatorViewModel
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
 
 @Composable
 fun CalculatorUI(
-    modifier: Modifier = Modifier,
     navController: NavController
 ) {
 
-    val viewModel: MainViewModel = koinViewModel()
+    val viewModel: CalculatorViewModel = koinViewModel()
 
     val foodList by viewModel.foodList.collectAsState()
     val firstItem by viewModel.firstItem.collectAsState()
@@ -46,7 +46,7 @@ fun CalculatorUI(
         viewModel.kcalCalculator(requiredValue)
     }
 
-    Column(modifier = modifier) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -54,7 +54,6 @@ fun CalculatorUI(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             DefaultHeader(
                 title = "Calculadora de calorias",
                 modifier = Modifier.padding(top = 10.dp)
@@ -122,10 +121,11 @@ fun CalculatorUI(
                 }
 
             }
+            Spacer(modifier = Modifier.weight(1f))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 DefaultCleanButton(

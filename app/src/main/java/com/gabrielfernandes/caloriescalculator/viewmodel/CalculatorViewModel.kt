@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(
+class CalculatorViewModel(
     private val foodDAO: FoodDAO
 ) : ViewModel() {
     private val _foodList = MutableStateFlow<List<Food>>(emptyList())

@@ -41,7 +41,7 @@ fun BackgroundUI() {
             modifier = Modifier
                 .size(400.dp) // Tamanho do círculo
                 .align(Alignment.BottomEnd) // Alinha no canto inferior direito
-                .offset(x = 250.dp, y = 150.dp) // Move para fora da tela, deixando só o primeiro quadrante visível
+                .offset(x = (-250).dp, y = 150.dp) // Move para fora da tela, deixando só o primeiro quadrante visível
                 .clip(CircleShape)
                 .background(colorResource(id = R.color.c1))
         )

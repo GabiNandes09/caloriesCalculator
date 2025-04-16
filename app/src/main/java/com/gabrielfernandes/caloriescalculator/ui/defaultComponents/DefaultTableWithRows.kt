@@ -35,7 +35,7 @@ fun DefaultTableWithRows(
 ) {
     val headers = listOf("ID", "Nome", "kcal/100g")
     Column(
-        modifier = modifier
+        modifier = modifier.border(.5.dp, Color.Black)
     ) {
         Header(headers)
         LazyColumn(
