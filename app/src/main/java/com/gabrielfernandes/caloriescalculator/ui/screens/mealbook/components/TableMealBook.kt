@@ -29,8 +29,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.gabrielfernandes.caloriescalculator.database.entity.Ingredients
 import com.gabrielfernandes.caloriescalculator.database.entity.Meal
 import com.gabrielfernandes.caloriescalculator.database.entity.MealWithIngredients
@@ -63,14 +65,23 @@ fun ItemMealBook(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = mealWithIngredients.meal.id.toString(), color = Color.Black)
+            Text(
+                text = mealWithIngredients.meal.id.toString(),
+                color = Color.Black,
+                fontWeight = FontWeight.Bold
+            )
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(text = mealWithIngredients.meal.name, color = Color.Black)
+                Text(
+                    text = mealWithIngredients.meal.name,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
                 Row(
                     Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start
@@ -112,41 +123,32 @@ fun ItemIngredientsMealBook(ingredients: Ingredients) {
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 40.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 40.dp)
     ) {
-        Spacer(
+        Column(
             modifier = Modifier
-                .padding(end = 10.dp)
-                .height(25.dp)
-                .width(.5.dp)
-                .background(Color.Black)
-        )
-        Text(
-            text = ingredients.name,
-            modifier = Modifier.width(80.dp),
-            maxLines = 1,
-            color = Color.Black
-        )
-        Text(
-            text = "${ingredients.qtd} g",
-            modifier = Modifier.width(80.dp),
-            maxLines = 1,
-            color = Color.Black
-        )
-        Text(
-            text = "${ingredients.totalKcal} kcal",
-            modifier = Modifier.width(80.dp),
-            maxLines = 1,
-            color = Color.Black
-        )
-        Spacer(
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .height(25.dp)
-                .width(.5.dp)
-                .background(Color.Black)
-        )
+                .border(.25.dp, Color.Black)
+                .fillMaxWidth()
+                .padding(start = 10.dp, top = 5.dp, bottom = 5.dp)
+        ) {
+            Text(
+                text = ingredients.name,
+                color = Color.Black
+            )
+            Row {
+                Text(
+                    text = "${ingredients.qtd} g",
+                    modifier = Modifier.width(80.dp),
+                    maxLines = 1,
+                    color = Color.Black
+                )
+                Text(
+                    text = "${ingredients.totalKcal} kcal",
+                    modifier = Modifier.width(80.dp),
+                    maxLines = 1,
+                    color = Color.Black
+                )
+            }
+        }
     }
 }
